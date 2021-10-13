@@ -9,13 +9,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\UuidV4;
 use App\Repository\UserRepository;
 
-/**
- * @ORM\Entity(repositoryClass=UserRepository::class)
- * @ORM\HasLifecycleCallbacks()
- */
 class User
 {
-    const ROLE_USER = 'ROLE_USER';
+    const ROLE_CUSTOMER = 'ROLE_CUSTOMER';
     const ROLE_ADMINISTRATOR = 'ROLE_ADMINISTRATOR';
 
     /**
@@ -101,7 +97,7 @@ class User
     public function getRoles(): ?array
     {
         $roles = $this->roles;
-        $roles[] = self::ROLE_USER;
+        $roles[] = self::ROLE_CUSTOMER;
 
         return array_unique($roles);
     }

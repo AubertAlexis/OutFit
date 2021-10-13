@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Order;
 
+use App\Entity\Customer;
 use App\Repository\Order\OrderRepository;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -56,6 +57,12 @@ class Order
      * @ORM\Column(type="datetime_immutable")
      */
     private DateTimeImmutable $updatedAt;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Customer::class, inversedBy="orders")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $customer;
 
     public function __construct()
     {
@@ -130,5 +137,17 @@ class Order
     public function getUpdatedAt(): ?\DateTimeImmutable
     {
         return $this->updatedAt;
+    }
+
+    public function getCustomer(): ?Customer
+    {
+        return $this->customer;
+    }
+
+    public function setCustomer(?Customer $customer): self
+    {
+        $this->customer = $customer;
+
+        return $this;
     }
 }
