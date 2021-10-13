@@ -9,12 +9,20 @@
 /vendor/
 ###< symfony/framework-bundle ###
 
-###> symfony/phpunit-bridge ###
-.phpunit.result.cache
-/phpunit.xml
-###< symfony/phpunit-bridge ###
-
 ###> phpunit/phpunit ###
 /phpunit.xml
 .phpunit.result.cache
 ###< phpunit/phpunit ###
+
+###> project custom ###
+.idea/
+.DS_store/
+/mysql/
+Dockerfile
+docker-compose.yml
+###< project custom ###
+
+###> squizlabs/php_codesniffer ###
+/.phpcs-cache
+/phpcs.xml
+###< squizlabs/php_codesniffer ###
