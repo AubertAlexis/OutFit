@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Entity\Order;
@@ -20,33 +21,27 @@ class Line
      * @ORM\Column(type="uuid")
      */
     private UuidV4 $id;
-
-    /**
+/**
      * @ORM\ManyToOne(targetEntity="App\Entity\Order\Order", inversedBy="lines")
      * @ORM\JoinColumn(nullable=false)
      */
     private Order $order;
-
-    /**
+/**
      * @ORM\Column(type="integer")
      */
     private int $amount = 0;
-
-    /**
+/**
      * @ORM\Column(type="integer")
      */
     private int $quantity = 0;
-
-    /**
+/**
      * @ORM\Column(type="datetime_immutable")
      */
     private DateTimeImmutable $createdAt;
-
-    /**
+/**
      * @ORM\Column(type="datetime_immutable")
      */
     private DateTimeImmutable $updatedAt;
-
     public function __construct()
     {
         $this->id = new UuidV4();
