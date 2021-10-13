@@ -6,19 +6,14 @@ namespace App\Entity;
 
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Uid\UuidV4;
-use App\Repository\UserRepository;
 
+/**
+ * @ORM\Embeddable()
+ */
 class User
 {
     const ROLE_CUSTOMER = 'ROLE_CUSTOMER';
     const ROLE_ADMINISTRATOR = 'ROLE_ADMINISTRATOR';
-
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="uuid")
-     */
-    private UuidV4 $id;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -52,22 +47,8 @@ class User
 
     public function __construct()
     {
-        $this->id = new UuidV4();
         $this->createdAt = new DateTimeImmutable();
         $this->updatedAt = new DateTimeImmutable();
-    }
-
-    /**
-     * @ORM\PreUpdate()
-     */
-    public function setUpdatedAt(): void
-    {
-        $this->updatedAt = new DateTimeImmutable();
-    }
-
-    public function getId(): UuidV4
-    {
-        return $this->id;
     }
 
     public function getEmail(): ?string
@@ -117,6 +98,12 @@ class User
     public function getUpdatedAt(): ?\DateTimeImmutable
     {
         return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(DateTimeImmutable $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+        return $this;
     }
 
     public function getSuspendedAt(): ?\DateTimeImmutable

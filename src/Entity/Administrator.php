@@ -13,7 +13,7 @@ use Symfony\Component\Uid\UuidV4;
  * @ORM\Entity(repositoryClass=AdministratorRepository::class)
  * @ORM\HasLifecycleCallbacks()
  */
-class Administrator extends User
+class Administrator
 {
 
     /**
@@ -21,12 +21,14 @@ class Administrator extends User
      * @ORM\Column(type="uuid")
      */
     private UuidV4 $id;
-
+/**
+     * @ORM\Embedded(class="User")
+     */
+    private User $user;
     public function __construct()
     {
-        parent::__construct();
-
-        $this->setRoles([User::ROLE_ADMINISTRATOR]);
+        $this->user = new User();
+        $this->user->setRoles([User::ROLE_ADMINISTRATOR]);
     }
 
     /**
@@ -34,6 +36,22 @@ class Administrator extends User
      */
     public function setUpdatedAt(): void
     {
-        $this->updatedAt = new DateTimeImmutable();
+        $this->user->setUpdatedAt(new DateTimeImmutable());
+    }
+
+    public function getId(): UuidV4
+    {
+        return $this->id;
+    }
+
+    public function getUser(): User
+    {
+        return $this->user;
+    }
+
+    public function setUser(User $user): Administrator
+    {
+        $this->user = $user;
+        return $this;
     }
 }

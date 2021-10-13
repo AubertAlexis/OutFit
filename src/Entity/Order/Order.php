@@ -20,12 +20,21 @@ use Symfony\Component\Uid\UuidV4;
 class Order
 {
     const CART = 'cart';
+    const PENDING = 'pending';
+    const SUCCESS = 'success';
+    const REFUSED = 'refused';
 
     /**
      * @ORM\Id
      * @ORM\Column(type="uuid")
      */
     private UuidV4 $id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Customer::class, inversedBy="orders")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private Customer $customer;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -58,12 +67,6 @@ class Order
      */
     private DateTimeImmutable $updatedAt;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Customer::class, inversedBy="orders")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $customer;
-
     public function __construct()
     {
         $this->id = new UuidV4();
@@ -85,7 +88,19 @@ class Order
         return $this->id;
     }
 
-    public function getNumber(): ?string
+    public function getCustomer(): Customer
+    {
+        return $this->customer;
+    }
+
+    public function setCustomer(Customer $customer): self
+    {
+        $this->customer = $customer;
+
+        return $this;
+    }
+
+    public function getNumber(): string
     {
         return $this->number;
     }
@@ -97,7 +112,7 @@ class Order
         return $this;
     }
 
-    public function getState(): ?string
+    public function getState(): string
     {
         return $this->state;
     }
@@ -129,25 +144,13 @@ class Order
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): DateTimeImmutable
     {
         return $this->createdAt;
     }
 
-    public function getUpdatedAt(): ?\DateTimeImmutable
+    public function getUpdatedAt(): DateTimeImmutable
     {
         return $this->updatedAt;
-    }
-
-    public function getCustomer(): ?Customer
-    {
-        return $this->customer;
-    }
-
-    public function setCustomer(?Customer $customer): self
-    {
-        $this->customer = $customer;
-
-        return $this;
     }
 }

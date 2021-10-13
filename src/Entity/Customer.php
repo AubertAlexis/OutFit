@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use App\Entity\Order\Order;
@@ -14,51 +16,57 @@ use Symfony\Component\Uid\UuidV4;
  * @ORM\Entity(repositoryClass=CustomerRepository::class)
  * @ORM\HasLifecycleCallbacks()
  */
-class Customer extends User
+class Customer
 {
     /**
      * @ORM\Id
      * @ORM\Column(type="uuid")
      */
-    private $id;
+    private UuidV4 $id;
 
     /**
+     * @ORM\Embedded(class="User")
+     */
+    private User $user;
+
+    /**
+     * @var Collection<int, Address>
      * @ORM\OneToMany(targetEntity=Address::class, mappedBy="customer", orphanRemoval=true)
      */
-    private $addresses;
+    private Collection $addresses;
 
     /**
+     * @var Collection<int, Order>
      * @ORM\OneToMany(targetEntity=Order::class, mappedBy="customer", orphanRemoval=true)
      */
-    private $orders;
+    private Collection $orders;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $firstName;
+    private string $firstName;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $lastName;
+    private string $lastName;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $phone;
+    private string $phone;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $stripId;
+    private ?string $stripeId;
 
     public function __construct()
     {
-        parent::__construct();
-
         $this->addresses = new ArrayCollection();
-        $this->setRoles([User::ROLE_CUSTOMER]);
         $this->orders = new ArrayCollection();
+        $this->user = new User();
+        $this->user->setRoles([User::ROLE_ADMINISTRATOR]);
     }
 
     /**
@@ -66,7 +74,7 @@ class Customer extends User
      */
     public function setUpdatedAt(): void
     {
-        $this->updatedAt = new DateTimeImmutable();
+        $this->user->setUpdatedAt(new DateTimeImmutable());
     }
 
     public function getId(): UuidV4
@@ -94,12 +102,7 @@ class Customer extends User
 
     public function removeAddress(Address $address): self
     {
-        if ($this->addresses->removeElement($address)) {
-            // set the owning side to null (unless already changed)
-            if ($address->getCustomer() === $this) {
-                $address->setCustomer(null);
-            }
-        }
+        $this->addresses->removeElement($address);
 
         return $this;
     }
@@ -124,12 +127,7 @@ class Customer extends User
 
     public function removeOrder(Order $order): self
     {
-        if ($this->orders->removeElement($order)) {
-            // set the owning side to null (unless already changed)
-            if ($order->getCustomer() === $this) {
-                $order->setCustomer(null);
-            }
-        }
+        $this->orders->removeElement($order);
 
         return $this;
     }
@@ -142,7 +140,6 @@ class Customer extends User
     public function setFirstName(string $firstName): self
     {
         $this->firstName = $firstName;
-
         return $this;
     }
 
@@ -154,7 +151,6 @@ class Customer extends User
     public function setLastName(string $lastName): self
     {
         $this->lastName = $lastName;
-
         return $this;
     }
 
@@ -166,19 +162,17 @@ class Customer extends User
     public function setPhone(string $phone): self
     {
         $this->phone = $phone;
-
         return $this;
     }
 
-    public function getStripId(): ?string
+    public function getStripeId(): ?string
     {
-        return $this->stripId;
+        return $this->stripeId;
     }
 
-    public function setStripId(?string $stripId): self
+    public function setStripeId(?string $stripeId): self
     {
-        $this->stripId = $stripId;
-
+        $this->stripeId = $stripeId;
         return $this;
     }
 }
