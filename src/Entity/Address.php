@@ -66,6 +66,7 @@ class Address
 
     public function __construct()
     {
+        $this->id = new UuidV4();
         $this->createdAt = new DateTimeImmutable();
     }
 

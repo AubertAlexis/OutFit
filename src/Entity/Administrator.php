@@ -21,12 +21,15 @@ class Administrator
      * @ORM\Column(type="uuid")
      */
     private UuidV4 $id;
-/**
+
+    /**
      * @ORM\Embedded(class="User")
      */
     private User $user;
+
     public function __construct()
     {
+        $this->id = new UuidV4();
         $this->user = new User();
         $this->user->setRoles([User::ROLE_ADMINISTRATOR]);
     }

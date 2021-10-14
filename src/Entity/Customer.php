@@ -63,10 +63,11 @@ class Customer
 
     public function __construct()
     {
+        $this->id = new UuidV4();
         $this->addresses = new ArrayCollection();
         $this->orders = new ArrayCollection();
         $this->user = new User();
-        $this->user->setRoles([User::ROLE_ADMINISTRATOR]);
+        $this->user->setRoles([User::ROLE_CUSTOMER]);
     }
 
     /**
