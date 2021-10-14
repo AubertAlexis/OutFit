@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Order\Line;
 use App\Repository\ProductRepository;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -49,6 +50,12 @@ class Product
     private bool $enabled;
 
     /**
+     * @var Collection<int, Line>
+     * @ORM\OneToMany(targetEntity=Line::class, mappedBy="product", orphanRemoval=true)
+     */
+    private Collection $lines;
+
+    /**
      * @ORM\Column(type="datetime_immutable")
      */
     private DateTimeImmutable $createdAt;
@@ -65,6 +72,7 @@ class Product
         $this->stocks = new ArrayCollection();
         $this->createdAt = new DateTimeImmutable();
         $this->updatedAt = new DateTimeImmutable();
+        $this->lines = new ArrayCollection();
     }
 
     /**
@@ -163,6 +171,14 @@ class Product
         $this->enabled = $enabled;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|Line[]
+     */
+    public function getLines(): Collection
+    {
+        return $this->lines;
     }
 
     public function getCreatedAt(): DateTimeImmutable

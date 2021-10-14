@@ -11,6 +11,7 @@ use Symfony\Component\Uid\UuidV4;
 /**
  * @ORM\Entity(repositoryClass=ColorRepository::class)
  * @ORM\HasLifecycleCallbacks()
+ * @ORM\Table(name="stock_color")
  */
 class Color
 {

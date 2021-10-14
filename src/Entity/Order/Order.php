@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Entity\Order;
 
 use App\Entity\Customer;
+use App\Entity\Product;
 use App\Repository\Order\OrderRepository;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -130,6 +131,25 @@ class Order
     public function getLines(): Collection
     {
         return $this->lines;
+    }
+
+    public function addProduct(Product $product): self
+    {
+        $lines = $this->lines->filter(fn (Line $line) => $line->getProduct() === $product);
+
+        $line = $lines->first();
+
+        if ($line === false) {
+            $line = new Line();
+
+            $line->setProduct($product)
+                ->setOrder($this);
+
+            $this->lines->add($line);
+        }
+
+        $line->increaseQuantity();
+        return $this;
     }
 
     public function getStripeId(): ?string
