@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 namespace App\Entity;
@@ -66,8 +65,6 @@ class Customer
         $this->id = new UuidV4();
         $this->addresses = new ArrayCollection();
         $this->orders = new ArrayCollection();
-        $this->user = new User();
-        $this->user->setRoles([User::ROLE_CUSTOMER]);
     }
 
     /**

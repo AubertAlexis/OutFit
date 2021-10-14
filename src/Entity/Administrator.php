@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 namespace App\Entity;
@@ -30,8 +29,6 @@ class Administrator
     public function __construct()
     {
         $this->id = new UuidV4();
-        $this->user = new User();
-        $this->user->setRoles([User::ROLE_ADMINISTRATOR]);
     }
 
     /**
