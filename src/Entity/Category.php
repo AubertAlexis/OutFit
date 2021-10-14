@@ -1,18 +1,19 @@
 <?php
-declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Repository\SizeRepository;
+use App\Repository\CategoryRepository;
 use DateTimeImmutable;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\UuidV4;
 
 /**
- * @ORM\Entity(repositoryClass=ColorRepository::class)
- * @ORM\HasLifecycleCallbacks()
+ * @ORM\Entity(repositoryClass=CategoryRepository::class)
+ * @ORM\HasLifecycleCallbacks
  */
-class Color
+class Category
 {
     /**
      * @ORM\Id
@@ -26,9 +27,15 @@ class Color
     private string $title;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="boolean")
      */
-    private string $hexa;
+    private bool $enabled;
+
+    /**
+     * @var Collection<int, Product>
+     * @ORM\ManyToMany(targetEntity=Product::class, mappedBy="categories")
+     */
+    private Collection $products;
 
     /**
      * @ORM\Column(type="datetime_immutable")
@@ -45,6 +52,7 @@ class Color
         $this->id = new UuidV4();
         $this->createdAt = new DateTimeImmutable();
         $this->updatedAt = new DateTimeImmutable();
+        $this->products = new ArrayCollection();
     }
 
     /**
@@ -72,14 +80,41 @@ class Color
         return $this;
     }
 
-    public function getHexa(): string
+    public function getEnabled(): bool
     {
-        return $this->hexa;
+        return $this->enabled;
     }
 
-    public function setHexa(string $hexa): self
+    public function setEnabled(bool $enabled): self
     {
-        $this->hexa = $hexa;
+        $this->enabled = $enabled;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Product[]
+     */
+    public function getProducts(): Collection
+    {
+        return $this->products;
+    }
+
+    public function addProduct(Product $product): self
+    {
+        if (!$this->products->contains($product)) {
+            $this->products[] = $product;
+            $product->addCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProduct(Product $product): self
+    {
+        if ($this->products->removeElement($product)) {
+            $product->removeCategory($this);
+        }
 
         return $this;
     }
