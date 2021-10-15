@@ -75,6 +75,11 @@ class Customer
         $this->user->setUpdatedAt(new DateTimeImmutable());
     }
 
+    public function getFullName(): string
+    {
+        return "{$this->firstName} {$this->lastName}";
+    }
+
     public function getId(): UuidV4
     {
         return $this->id;
@@ -171,6 +176,17 @@ class Customer
     public function setStripeId(?string $stripeId): self
     {
         $this->stripeId = $stripeId;
+        return $this;
+    }
+
+    public function getUser(): User
+    {
+        return $this->user;
+    }
+
+    public function setUser(User $user): Customer
+    {
+        $this->user = $user;
         return $this;
     }
 }
