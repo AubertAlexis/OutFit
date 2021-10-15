@@ -19,6 +19,7 @@ Encore
     .addEntry('admin_size', './assets/admin/js/size/index.js')
     .addEntry('admin_customer', './assets/admin/js/customer/index.js')
     .addEntry('admin_color', './assets/admin/js/color/index.js')
+    .addEntry('admin_category', './assets/admin/js/category/index.js')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()

@@ -39,11 +39,11 @@
                             <tbody>
                                 {% for color in colors %}
                                     <tr>
-                                        <td>{{ color.id }}</td>
-                                        <td>{{ color.title }}</td>
-                                        <td><span class="badge badge-pill" style="background-color:{{ color.hexa }}; color:transparent">{{ color.hexa }}</span></td>
-                                        <td>{{ color.createdAt|date('d/m/Y H:i:s') }}</td>
-                                        <td>{{ color.updatedAt|date('d/m/Y H:i:s') }}</td>
+                                        <td class="align-middle">{{ color.id }}</td>
+                                        <td class="align-middle">{{ color.title }}</td>
+                                        <td class="align-middle"><span class="badge badge-pill" style="background-color:{{ color.hexa }}; color:transparent">{{ color.hexa }}</span></td>
+                                        <td class="align-middle">{{ color.createdAt|date('d/m/Y H:i:s') }}</td>
+                                        <td class="align-middle">{{ color.updatedAt|date('d/m/Y H:i:s') }}</td>
                                         <td class="d-flex">
                                             <a href="{{ path('admin_color_edit', {id: color.id}) }}" class="btn btn-sm btn-rounded btn-primary mr-2">
                                                 <i class="fas fa-pencil-alt"></i>
