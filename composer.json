@@ -1,4 +1,6 @@
 {
+    "name" : "aubertalexis/outfit",
+    "description" : "Outfit",
     "type": "project",
     "license": "proprietary",
     "minimum-stability": "stable",
@@ -89,7 +91,7 @@
             "symfony console doctrine:fixtures:load -n"
         ],
         "tests": [
-            "php vendor/bin/phpstan analyse -c phpstan.neon",
+            "php vendor/bin/phpstan analyse -c phpstan.neon --no-progress",
             "php vendor/bin/phpunit"
         ],
         "auto-scripts": {
