@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class Index extends AbstractController
 {
     /**
-     * @Route("/administrator", name="admin_administrator_index")
+     * @Route("/administrator", name="admin_administrator_index", methods={"GET"})
      * @param AdministratorRepository $administratorRepository
      * @return Response
      */
