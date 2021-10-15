@@ -38,10 +38,10 @@
                             <tbody>
                                 {% for size in sizes %}
                                     <tr>
-                                        <td>{{ size.id }}</td>
-                                        <td>{{ size.title }}</td>
-                                        <td>{{ size.createdAt|date('d/m/Y H:i:s') }}</td>
-                                        <td>{{ size.updatedAt|date('d/m/Y H:i:s') }}</td>
+                                        <td class="align-middle">{{ size.id }}</td>
+                                        <td class="align-middle">{{ size.title }}</td>
+                                        <td class="align-middle">{{ size.createdAt|date('d/m/Y H:i:s') }}</td>
+                                        <td class="align-middle">{{ size.updatedAt|date('d/m/Y H:i:s') }}</td>
                                         <td class="d-flex">
                                             <a href="{{ path('admin_size_edit', {id: size.id}) }}" class="btn btn-sm btn-rounded btn-primary mr-2">
                                                 <i class="fas fa-pencil-alt"></i>
