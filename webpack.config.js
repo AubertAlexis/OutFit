@@ -16,6 +16,8 @@ Encore
 
     .addEntry('admin_theme', './assets/admin/js/theme.min.js')
     .addEntry('admin_administrator', './assets/admin/js/administrator/index.js')
+    .addEntry('admin_size', './assets/admin/js/size/index.js')
+    .addEntry('admin_color', './assets/admin/js/color/index.js')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()

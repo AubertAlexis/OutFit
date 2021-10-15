@@ -1,55 +1,53 @@
 {% extends 'admin/base.html.twig' %}
 
-{% block title "Couleur" %}
+{% block title "Taille" %}
 
 {% block javascripts %}
-    {{ encore_entry_script_tags('admin_color') }}
+    {{ encore_entry_script_tags('admin_size') }}
 {% endblock %}
 
 {% block body %}
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Couleurs</h1>
+        <h1 class="h3 mb-0 text-gray-800">Tailles</h1>
     </div>
 
     <div class="row">
         <div class="col-12">
             <div class="card shadow mb-4">
                 <div class="card-header py-3 d-flex align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Informations sur les couleurs</h6>
-                    <a href="{{ path('admin_color_add') }}" class="btn btn-success btn-sm btn-icon-split">
+                    <h6 class="m-0 font-weight-bold text-primary">Informations des tailles</h6>
+                    <a href="{{ path('admin_size_add') }}" class="btn btn-success btn-sm btn-icon-split">
                         <span class="icon text-white-50">
                             <i class="fas fa-plus"></i>
                         </span>
-                        <span class="text">Ajouter une couleur</span>
+                        <span class="text">Ajouter une taille</span>
                     </a>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-bordered" id="colorTable" width="100%" cellspacing="0">
+                        <table class="table table-bordered" id="sizeTable" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
                                     <th>Uuid</th>
-                                    <th>titre</th>
-                                    <th>Couleur</th>
+                                    <th>Nom</th>
                                     <th>Création</th>
                                     <th>Édition</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for color in colors %}
+                                {% for size in sizes %}
                                     <tr>
-                                        <td>{{ color.id }}</td>
-                                        <td>{{ color.title }}</td>
-                                        <td><span class="badge badge-pill" style="background-color:{{ color.hexa }}; color:transparent">{{ color.hexa }}</span></td>
-                                        <td>{{ color.createdAt|date('d/m/Y H:i:s') }}</td>
-                                        <td>{{ color.updatedAt|date('d/m/Y H:i:s') }}</td>
+                                        <td>{{ size.id }}</td>
+                                        <td>{{ size.title }}</td>
+                                        <td>{{ size.createdAt|date('d/m/Y H:i:s') }}</td>
+                                        <td>{{ size.updatedAt|date('d/m/Y H:i:s') }}</td>
                                         <td class="d-flex">
-                                            <a href="{{ path('admin_color_edit', {id: color.id}) }}" class="btn btn-sm btn-rounded btn-primary mr-2">
+                                            <a href="{{ path('admin_size_edit', {id: size.id}) }}" class="btn btn-sm btn-rounded btn-primary mr-2">
                                                 <i class="fas fa-pencil-alt"></i>
                                             </a>
-                                            <form action="{{ url('admin_color_delete', { id: color.id }) }}" method="post">
-                                                <input type="hidden" name="token" value="{{ csrf_token('delete-color') }}"/>
+                                            <form action="{{ url('admin_size_delete', { id: size.id }) }}" method="post">
+                                                <input type="hidden" name="token" value="{{ csrf_token('delete-size') }}"/>
 
                                                 <button type="submit" class="btn btn-sm btn-rounded btn-danger">
                                                     <i class="fas fa-trash"></i>
