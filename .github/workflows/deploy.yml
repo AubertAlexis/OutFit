@@ -1,0 +1,110 @@
+on: push
+#on:  # Delete all this part if enabling the tests!
+#  push:
+#    branches:
+#      - master
+#      - develop
+
+jobs:
+  tests:
+    name: PHPStan & PHPUnit
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        operating-system: [ubuntu-latest]
+        php-versions: ['8.0']
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: 'Password123!'
+
+        ports:
+          - 3306:3306
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup PHP, with composer and extensions
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          extensions: mbstring, xml, ctype, iconv, intl
+          coverage: xdebug
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+      - name: Cache composer dependencies
+        uses: actions/cache@v1
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
+      - name: Install
+        run: BRANCH=${{ env.GITHUB_REF_SLUG }} DATABASE_USER=root DATABASE_PASSWORD=Password123! composer prepare
+      - name: Tests
+        run: composer tests
+  # tests:
+  #   runs-on: ubuntu-latest
+  #   services:
+  #     mariadb:
+  #       image: mariadb:10.5
+  #       ports:
+  #         - 3306:3306
+  #       env:
+  #         MYSQL_ROOT_PASSWORD: root
+  #         MYSQL_DATABASE: bhubbles
+  #   steps:
+  #     - name: Clone app
+  #       uses: actions/checkout@v2
+  #     - name: Cache multiple paths
+  #       uses: actions/cache@v2
+  #       with:
+  #         path: |
+  #           vendor
+  #         key: ${{ runner.os }}-bhubbles-${{ hashFiles('composer.lock') }}
+  #         restore-keys: |
+  #           ${{ runner.os }}-bhubbles-
+  #     - name: Install PHP
+  #       uses: shivammathur/setup-php@v2
+  #       with:
+  #         php-version: '7.4'
+  #     - name: Install dependencies and run migrations
+  #       run: |
+  #         cp .env.testing .env
+  #         composer install
+  #         php bin/console doctrine:migrations:migrate -n
+  #     - name: Run tests
+  #       run: php ./phpunit symfony
+#  staging-deploy:
+#    runs-on: ubuntu-latest
+#    if: github.ref == 'refs/heads/develop'
+#    # needs: tests
+#    steps:
+#      - name: Deploy staging
+#        uses: appleboy/ssh-action@master
+#        with:
+#          host: ${{ secrets.SSH_SERVER }}
+#          username: ${{ secrets.SSH_USER }}
+#          key: ${{ secrets.SSH_KEY }}
+#          script: |
+#            cd test
+#            git pull
+#            /usr/local/php7.4/bin/php ../composer install -o --no-dev
+#            /usr/local/php7.4/bin/php bin/console doctrine:migrations:migrate -n
+#  prod-deploy:
+#    runs-on: ubuntu-latest
+#    if: github.ref == 'refs/heads/master'
+#    # needs: tests
+#    steps:
+#      - name: Deploy prod
+#        uses: appleboy/ssh-action@master
+#        with:
+#          host: ${{ secrets.SSH_SERVER }}
+#          username: ${{ secrets.SSH_USER }}
+#          key: ${{ secrets.SSH_KEY }}
+#          script: |
+#            cd www
+#            git pull
+#            /usr/local/php7.4/bin/php ../composer install -o --no-dev
+#            /usr/local/php7.4/bin/php bin/console doctrine:migrations:migrate -n
