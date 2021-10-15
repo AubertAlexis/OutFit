@@ -34,11 +34,7 @@ jobs:
           coverage: xdebug
       - name: Install Composer
         run:
-          NAME=outfit-dev DATABASE_USER=root DATABASE_PASSWORD=Password123!
           cp .env.dist .env.local
-          sed -i -e 's/NAME/$(NAME)/' .env.local
-          sed -i -e 's/USER/$(DATABASE_USER)/' .env.local
-          sed -i -e 's/PASSWORD/$(DATABASE_PASSWORD)/' .env.local
           composer install
       - name: Analyse code
         run: |
