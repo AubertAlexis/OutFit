@@ -1,10 +1,11 @@
-on: push
-#on:  # Delete all this part if enabling the tests!
-#  push:
-#    branches:
-#      - master
-#      - develop
-
+name: Continuous Integration
+#on: push
+on:  # Delete all this part if enabling the tests!
+  push:
+    branches:
+      - develop
+      - feature/*
+      -
 jobs:
   tests:
     name: PHPStan & PHPUnit
@@ -31,19 +32,23 @@ jobs:
           php-version: ${{ matrix.php-versions }}
           extensions: mbstring, xml, ctype, iconv, intl
           coverage: xdebug
-      - name: Get composer cache directory
-        id: composer-cache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
-      - name: Cache composer dependencies
-        uses: actions/cache@v1
-        with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-          restore-keys: ${{ runner.os }}-composer-
-      - name: Install
-        run: BRANCH=${{ env.GITHUB_REF_SLUG }} DATABASE_USER=root DATABASE_PASSWORD=Password123! composer prepare
+      - name: Install Composer
+        run: DATABASE_USER=root DATABASE_PASSWORD=Password123! composer install
+      - name: Analyse code
+        run: |
+          composer valid
+          php bin/console doctrine:schema:valid --skip-sync
+          php bin/console lint:twig templates/
+          php vendor/bin/phpstan analyse -c phpstan.neon --no-progress
+      - name: Prepare dev environnement
+        run: |
+          php bin/console doctrine:database:drop --if-exists --force --env=dev
+          php bin/console doctrine:database:create --env=dev
+          php bin/console doctrine:migrations:migrate -n
+          php bin/console doctrine:fixtures:load -n
       - name: Tests
-        run: composer tests
+        run: |
+          php bin/phpunit --testdox
   # tests:
   #   runs-on: ubuntu-latest
   #   services:
