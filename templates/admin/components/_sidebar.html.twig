@@ -34,8 +34,6 @@
 
     <li class="nav-item {{ 'admin_customer' in app.request.attributes.get('_route') ? 'active' : '' }}">
         <a class="nav-link" href="{{ path('admin_customer_index') }}">
-            <i class="fas fa-fw fa-users"></i>
-            <span>Clients</span></a>
     </li>
 
     <!-- Divider -->
@@ -103,11 +101,7 @@
         </a>
         <div id="collapseTree" class="collapse" aria-labelledby="headingTree" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-<<<<<<< HEAD
-                <a class="collapse-item" href="">Couleurs</a>
-=======
                 <a class="collapse-item" href="{{ path('admin_color_index') }}">Couleurs</a>
->>>>>>> 30476c8cc9b967d6e50393a8524da015cdc147df
                 <a class="collapse-item" href="{{ path('admin_size_index') }}">Tailles</a>
             </div>
         </div>
