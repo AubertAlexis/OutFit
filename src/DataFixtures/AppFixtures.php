@@ -17,7 +17,7 @@ class AppFixtures extends Fixture
         $this->passwordHaser = $passwordHasher;
     }
 
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         for ($i = 0; $i < 15; $i++) {
             //  $this->passwordHaser->hashPassword(

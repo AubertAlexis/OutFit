@@ -24,7 +24,7 @@ class Delete extends AbstractController
      */
     public function index(Administrator $administrator, Request $request, EntityManagerInterface $manager): Response
     {
-        $submittedToken = $request->request->get('token');
+        $submittedToken = (string) $request->request->get('token');
 
         if ($this->isCsrfTokenValid('delete-administrator', $submittedToken)) {
             $manager->remove($administrator);

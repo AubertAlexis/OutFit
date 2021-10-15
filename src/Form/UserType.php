@@ -21,10 +21,8 @@ class UserType extends AbstractType
             ->add('email', EmailType::class, [
                 'label' => 'Adresse e-mail'
             ])
-
-
+            
             ->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
-                /** @var User $user */
                 $user = $event->getData();
                 $form = $event->getForm();
 
@@ -33,7 +31,7 @@ class UserType extends AbstractType
                         'label' => false,
                         'invalid_message' => 'Les mots de passe doivent être identiques.',
                         'type' => PasswordType::class,
-                        'first_options' => [
+                        'first_options'  => [
                             'label' => 'Mot de passe'
                         ],
                         'second_options' => [
