@@ -1,0 +1,79 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title "Réductions" %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('admin_discount') }}
+{% endblock %}
+
+{% block body %}
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Réductions</h1>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 d-flex align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Informations sur les réductions</h6>
+                    <a href="{{ path('admin_discount_add') }}" class="btn btn-success btn-sm btn-icon-split">
+                        <span class="icon text-white-50">
+                            <i class="fas fa-plus"></i>
+                        </span>
+                        <span class="text">Ajouter une réduction</span>
+                    </a>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="discountTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Uuid</th>
+                                    <th>Montant</th>
+                                    <th>Création</th>
+                                    <th>Active</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for discount in discounts %}
+                                    <tr>
+                                        <td>{{ discount.id }}</td>
+                                        <td class="text-primary">
+                                            {{ discount.amount }}
+                                            {% if discount.type == constant('App\\Entity\\Discount::EURO') %}
+                                                <span class="ml-1"><i class="fas fa-euro-sign"></i></span>
+                                            {% else %}
+                                                <span class="ml-1"><i class="fas fa-percent"></i></span>
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ discount.createdAt|date('d/m/Y H:i:s') }}</td>
+                                        <td>
+                                            {% if discount.enabled %}
+                                                <span>Oui</span>
+                                            {% else %}
+                                                <span>Non</span>
+                                            {% endif %}
+                                        </td>
+                                        <td class="d-flex">
+                                            <a href="{{ path('admin_discount_edit', {id: discount.id}) }}" class="btn btn-sm btn-rounded btn-primary mr-2">
+                                                <i class="fas fa-pencil-alt"></i>
+                                            </a>
+                                            <form action="{{ url('admin_discount_delete', { id: discount.id }) }}" method="post">
+                                                <input type="hidden" name="token" value="{{ csrf_token('delete-discount') }}"/>
+
+                                                <button type="submit" class="btn btn-sm btn-rounded btn-danger">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
