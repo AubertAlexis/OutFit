@@ -1,62 +1,61 @@
 {% extends 'admin/base.html.twig' %}
 
-{% block title "Administrateur" %}
+{% block title "Catégorie" %}
 
 {% block javascripts %}
-    {{ encore_entry_script_tags('admin_administrator') }}
+    {{ encore_entry_script_tags('admin_category') }}
 {% endblock %}
 
 {% block body %}
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Administrateur</h1>
+        <h1 class="h3 mb-0 text-gray-800">Tailles</h1>
     </div>
 
     <div class="row">
         <div class="col-12">
             <div class="card shadow mb-4">
                 <div class="card-header py-3 d-flex align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Informations des administrateurs</h6>
-                    <a href="{{ path('admin_administrator_add') }}" class="btn btn-success btn-sm btn-icon-split">
+                    <h6 class="m-0 font-weight-bold text-primary">Informations des catégories</h6>
+                    <a href="{{ path('admin_category_add') }}" class="btn btn-success btn-sm btn-icon-split">
                         <span class="icon text-white-50">
                             <i class="fas fa-plus"></i>
                         </span>
-                        <span class="text">Ajouter un administrateur</span>
+                        <span class="text">Ajouter une catégorie</span>
                     </a>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-bordered" id="administratorTable" width="100%" cellspacing="0">
+                        <table class="table table-bordered" id="categoryTable" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
                                     <th>Uuid</th>
-                                    <th>Email</th>
+                                    <th>Nom</th>
+                                    <th>Visible</th>
                                     <th>Création</th>
                                     <th>Édition</th>
-                                    <th>Suspendu</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for administrator in administrators %}
+                                {% for category in categories %}
                                     <tr>
-                                        <td class="align-middle">{{ administrator.id }}</td>
-                                        <td class="align-middle">{{ administrator.user.email }}</td>
-                                        <td class="align-middle">{{ administrator.user.createdAt|date('d/m/Y H:i:s') }}</td>
-                                        <td class="align-middle">{{ administrator.user.updatedAt|date('d/m/Y H:i:s') }}</td>
+                                        <td class="align-middle">{{ category.id }}</td>
+                                        <td class="align-middle">{{ category.title }}</td>
                                         <td class="align-middle">
-                                            {% if administrator.user.suspendedAt is not null %}
-                                                <p>Oui</p>
-                                                <small>{{ administrator.user.suspendedAt|date('d/m/Y H:i:s') }}</small>
+                                            {% if category.enabled %}
+                                                <p class="text-success d-flex align-items-center"><i class="fas fa-check-circle mr-2"></i>Oui</p>
                                             {% else %}
-                                                <p>Non</p>
+                                                <p class="text-danger d-flex align-items-center"><i class="fas fa-times-circle mr-2"></i>Non</p>
                                             {% endif %}
                                         </td>
+                                        <td class="align-middle">{{ category.createdAt|date('d/m/Y H:i:s') }}</td>
+                                        <td class="align-middle">{{ category.updatedAt|date('d/m/Y H:i:s') }}</td>
                                         <td class="d-flex">
-                                            <a href="{{ path('admin_administrator_edit', {id: administrator.id}) }}" class="btn btn-sm btn-rounded btn-primary mr-2">
+                                            <a href="{{ path('admin_category_edit', {id: category.id}) }}" class="btn btn-sm btn-rounded btn-primary mr-2">
                                                 <i class="fas fa-pencil-alt"></i>
                                             </a>
-                                            <form action="{{ url('admin_administrator_delete', { id: administrator.id }) }}" method="post">
-                                                <input type="hidden" name="token" value="{{ csrf_token('delete-administrator') }}"/>
+                                            <form action="{{ url('admin_category_delete', { id: category.id }) }}" method="post">
+                                                <input type="hidden" name="token" value="{{ csrf_token('delete-category') }}"/>
 
                                                 <button type="submit" class="btn btn-sm btn-rounded btn-danger">
                                                     <i class="fas fa-trash"></i>

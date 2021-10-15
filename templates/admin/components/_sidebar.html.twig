@@ -34,6 +34,8 @@
 
     <li class="nav-item {{ 'admin_customer' in app.request.attributes.get('_route') ? 'active' : '' }}">
         <a class="nav-link" href="{{ path('admin_customer_index') }}">
+            <i class="fas fa-fw fa-users"></i>
+            <span>Clients</span></a>
     </li>
 
     <!-- Divider -->
@@ -74,8 +76,8 @@
             <span>Produits</span></a>
     </li>
 
-    <li class="nav-item">
-        <a class="nav-link" href="">
+    <li class="nav-item {{ 'admin_category' in app.request.attributes.get('_route') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ path('admin_category_index') }}">
             <i class="fas fa-fw fa-filter"></i>
             <span>Catégories</span></a>
     </li>

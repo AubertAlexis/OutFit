@@ -42,14 +42,14 @@
                             <tbody>
                                 {% for customer in customers %}
                                     <tr>
-                                        <td>{{ customer.id }}</td>
-                                        <td>{{ customer.user.email }}</td>
-                                        <td>{{ customer.firstName }}</td>
-                                        <td>{{ customer.lastName }}</td>
-                                        <td>{{ customer.phone }}</td>
-                                        <td>{{ customer.user.createdAt|date('d/m/Y H:i:s') }}</td>
-                                        <td>{{ customer.user.updatedAt|date('d/m/Y H:i:s') }}</td>
-                                        <td>
+                                        <td class="align-middle">{{ customer.id }}</td>
+                                        <td class="align-middle">{{ customer.user.email }}</td>
+                                        <td class="align-middle">{{ customer.firstName }}</td>
+                                        <td class="align-middle">{{ customer.lastName }}</td>
+                                        <td class="align-middle">{{ customer.phone }}</td>
+                                        <td class="align-middle">{{ customer.user.createdAt|date('d/m/Y H:i:s') }}</td>
+                                        <td class="align-middle">{{ customer.user.updatedAt|date('d/m/Y H:i:s') }}</td>
+                                        <td class="align-middle">
                                             {% if customer.user.suspendedAt is not null %}
                                                 <p>Oui</p>
                                                 <small>{{ customer.user.suspendedAt|date('d/m/Y H:i:s') }}</small>
