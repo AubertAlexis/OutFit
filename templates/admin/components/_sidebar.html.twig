@@ -1,0 +1,118 @@
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+    <!-- Sidebar - Brand -->
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <div class="sidebar-brand-icon rotate-n-15">
+            <i class="fas fa-laugh-wink"></i>
+        </div>
+        <div class="sidebar-brand-text mx-3">OutFit</div>
+    </a>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider my-0">
+
+    <!-- Nav Item - Dashboard -->
+    <li class="nav-item {{ 'admin_dashboard' in app.request.attributes.get('_route') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ path('admin_dashboard_index') }}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Tableau de bord</span></a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Utilisateur
+    </div>
+
+    <li class="nav-item {{ 'admin_administrator' in app.request.attributes.get('_route') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ path('admin_administrator_index') }}">
+            <i class="fas fa-fw fa-user-cog"></i>
+            <span>Administrateurs</span></a>
+    </li>
+
+    <li class="nav-item {{ 'admin_customer' in app.request.attributes.get('_route') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ path('admin_customer_index') }}">
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <div class="sidebar-heading">
+        Boutique
+    </div>
+
+    <!-- Nav Item - Pages Collapse Menu -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+           aria-expanded="true" aria-controls="collapseTwo">
+            <i class="fas fa-fw fa-cart-arrow-down"></i>
+            <span>Commandes</span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="">Toutes</a>
+                <h6 class="collapse-header">État de la commande</h6>
+                <a class="collapse-item" href="">Panier</a>
+                <a class="collapse-item" href="">En attente</a>
+                <a class="collapse-item" href="">Réussie</a>
+                <a class="collapse-item" href="">Échoué</a>
+            </div>
+        </div>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="">
+            <i class="fas fa-fw fa-percent"></i>
+            <span>Réductions</span></a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="">
+            <i class="fas fa-fw fa-folder"></i>
+            <span>Produits</span></a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="">
+            <i class="fas fa-fw fa-filter"></i>
+            <span>Catégories</span></a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="">
+            <i class="fas fa-fw fa-layer-group"></i>
+            <span>Stocks</span></a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <div class="sidebar-heading">
+        Paramétrage
+    </div>
+
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTree"
+           aria-expanded="true" aria-controls="collapseTree">
+            <i class="fas fa-fw fa-cogs"></i>
+            <span>Options de stock</span>
+        </a>
+        <div id="collapseTree" class="collapse" aria-labelledby="headingTree" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="{{ path('admin_color_index') }}">Couleurs</a>
+                <a class="collapse-item" href="{{ path('admin_size_index') }}">Tailles</a>
+            </div>
+        </div>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider d-none d-md-block">
+
+    <!-- Sidebar Toggler (Sidebar) -->
+    <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div>
+
+</ul>
