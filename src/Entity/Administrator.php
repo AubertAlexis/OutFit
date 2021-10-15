@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 namespace App\Entity;
@@ -8,6 +7,7 @@ use DateTimeImmutable;
 use App\Repository\AdministratorRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\UuidV4;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=AdministratorRepository::class)
@@ -24,14 +24,13 @@ class Administrator
 
     /**
      * @ORM\Embedded(class="User")
+     * @Assert\Valid()
      */
     private User $user;
 
     public function __construct()
     {
         $this->id = new UuidV4();
-        $this->user = new User();
-        $this->user->setRoles([User::ROLE_ADMINISTRATOR]);
     }
 
     /**
