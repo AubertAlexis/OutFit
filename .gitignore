@@ -19,6 +19,7 @@
 /mysql/
 Dockerfile
 docker-compose.yml
+.phpcs-cache
 ###< project custom ###
 
 ###> symfony/webpack-encore-bundle ###
