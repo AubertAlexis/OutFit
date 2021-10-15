@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 namespace App\Entity;
@@ -66,8 +65,6 @@ class Customer
         $this->id = new UuidV4();
         $this->addresses = new ArrayCollection();
         $this->orders = new ArrayCollection();
-        $this->user = new User();
-        $this->user->setRoles([User::ROLE_CUSTOMER]);
     }
 
     /**
@@ -76,6 +73,11 @@ class Customer
     public function setUpdatedAt(): void
     {
         $this->user->setUpdatedAt(new DateTimeImmutable());
+    }
+
+    public function getFullName(): string
+    {
+        return "{$this->firstName} {$this->lastName}";
     }
 
     public function getId(): UuidV4
@@ -174,6 +176,17 @@ class Customer
     public function setStripeId(?string $stripeId): self
     {
         $this->stripeId = $stripeId;
+        return $this;
+    }
+
+    public function getUser(): User
+    {
+        return $this->user;
+    }
+
+    public function setUser(User $user): Customer
+    {
+        $this->user = $user;
         return $this;
     }
 }

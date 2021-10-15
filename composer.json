@@ -42,11 +42,13 @@
         "symfony/uid": "5.3.*",
         "symfony/validator": "5.3.*",
         "symfony/web-link": "5.3.*",
+        "symfony/webpack-encore-bundle": "^1.12",
         "symfony/yaml": "5.3.*",
         "twig/extra-bundle": "^2.12|^3.0",
         "twig/twig": "^2.12|^3.0"
     },
     "require-dev": {
+        "doctrine/doctrine-fixtures-bundle": "^3.4",
         "phpstan/phpstan": "^0.12.99",
         "phpunit/phpunit": "^9.5",
         "squizlabs/php_codesniffer": "^3.6",
@@ -85,7 +87,8 @@
             "symfony console doctrine:database:drop --if-exists --force",
             "symfony console doctrine:database:create",
             "symfony console doctrine:schema:validate --skip-sync",
-            "symfony console doctrine:migrations:migrate -n"
+            "symfony console doctrine:migrations:migrate -n",
+            "symfony console doctrine:fixtures:load -n"
         ],
         "tests": [
             "php vendor/bin/phpstan analyse -c phpstan.neon --no-progress",
