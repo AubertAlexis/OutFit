@@ -3,8 +3,9 @@
 {% block title "Édition" %}
 
 {% block body %}
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Édition de l'administrateur {{ administrator.user.email }} - {{ administrator.id }}</h1>
+    <div class="mb-3">
+        <h2 class="mb-0 text-secondary">Édition de l'administrateur <span class="text-primary font-weight-normal">{{ administrator.user.email }}</span></h2>
+        <small class="h6 mt-3 text-gray-600">{{ administrator.id }}</small>
     </div>
 
     <div class="row">
