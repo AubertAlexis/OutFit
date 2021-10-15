@@ -13,6 +13,9 @@ use Symfony\Component\Uid\UuidV4;
  */
 class Discount
 {
+    public const PERCENT = 'percent';
+    public const EURO = 'euro';
+
     /**
      * @ORM\Id
      * @ORM\Column(type="uuid")
