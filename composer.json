@@ -88,7 +88,7 @@
             "symfony console doctrine:migrations:migrate -n"
         ],
         "tests": [
-            "php vendor/bin/phpstan analyse -c phpstan.neon",
+            "php vendor/bin/phpstan analyse -c phpstan.neon --no-progress",
             "php vendor/bin/phpunit"
         ],
         "auto-scripts": {

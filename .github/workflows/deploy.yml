@@ -19,7 +19,8 @@ jobs:
       mysql:
         image: mysql:8.0
         env:
-          MYSQL_ROOT_PASSWORD: 'Password123!'
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: outfit
 
         ports:
           - 3306:3306
@@ -34,11 +35,7 @@ jobs:
           coverage: xdebug
       - name: Install Composer
         run: |
-          NAME=outfit-dev DATABASE_USER=root DATABASE_PASSWORD=Password123!
           cp .env.dist .env.local
-          sed -i -e 's/NAME/$(NAME)/' .env.local
-          sed -i -e 's/USER/$(DATABASE_USER)/' .env.local
-          sed -i -e 's/PASSWORD/$(DATABASE_PASSWORD)/' .env.local
           composer install
       - name: Analyse code
         run: |
@@ -48,6 +45,7 @@ jobs:
           php vendor/bin/phpstan analyse -c phpstan.neon --no-progress
       - name: Prepare dev environnement
         run: |
+          php bin/console doctrine:database:drop --if-exists --force --env=dev
           php bin/console doctrine:database:create --env=dev
           php bin/console doctrine:migrations:migrate -n
           php bin/console doctrine:fixtures:load -n
