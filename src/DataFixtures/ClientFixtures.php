@@ -3,12 +3,13 @@
 namespace App\DataFixtures;
 
 use App\Entity\Administrator;
+use App\Entity\Customer;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-class AppFixtures extends Fixture
+class ClientFixtures extends Fixture
 {
     private UserPasswordHasherInterface $passwordHaser;
 
@@ -20,21 +21,20 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         for ($i = 0; $i < 15; $i++) {
-            //  $this->passwordHaser->hashPassword(
-            //      $user,
-            //      "password"
-            // )
-
             $user = new User();
-            $administrator = new Administrator();
+            $customer = new Customer();
 
-            $administrator->setUser($user);
+            $customer->setUser($user)
+                ->setFirstName("Prénom $i")
+                ->setLastName("Nom $i")
+                ->setPhone("0606060000")
+            ;
 
-            $user->setEmail("admin+$i@gmail.com")
+            $user->setEmail("customer+$i@gmail.com")
                 ->setPassword("password")
-                ->setRoles([User::ROLE_ADMINISTRATOR]);
+                ->setRoles([User::ROLE_CUSTOMER]);
 
-            $manager->persist($administrator);
+            $manager->persist($customer);
         }
 
         $manager->flush();
