@@ -35,7 +35,7 @@ class Product
 
     /**
      * @var Collection<int, Category>
-     * @ORM\ManyToMany(targetEntity=Category::class, inversedBy="products")
+     * @ORM\ManyToMany(targetEntity=Category::class, inversedBy="products", cascade={"persist"})
      */
     private Collection $categories;
 

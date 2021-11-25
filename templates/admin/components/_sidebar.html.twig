@@ -70,8 +70,8 @@
             <span>Réductions</span></a>
     </li>
 
-    <li class="nav-item">
-        <a class="nav-link" href="">
+    <li class="nav-item {{ 'admin_product' in app.request.attributes.get('_route') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ path('admin_product_index') }}">
             <i class="fas fa-fw fa-folder"></i>
             <span>Produits</span></a>
     </li>
