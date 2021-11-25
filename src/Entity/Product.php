@@ -41,7 +41,7 @@ class Product
 
     /**
      * @var Collection<int, Stock>
-     * @ORM\OneToMany(targetEntity=Stock::class, mappedBy="product", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Stock::class, mappedBy="product", orphanRemoval=true, cascade={"persist"})
      */
     private Collection $stocks;
 
