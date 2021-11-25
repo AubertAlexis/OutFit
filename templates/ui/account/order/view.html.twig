@@ -1,0 +1,38 @@
+{% extends 'ui/base.html.twig' %}
+
+{% block body %}
+
+    <section class="orders spad">
+        <div class="container">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Produit</th>
+                    <th>Prix unitaire</th>
+                    <th>Quantité</th>
+                    <th>Coût total</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for line in order.lines %}
+                    <tr>
+                        <td>
+                            {{ line.product.name }}
+                        </td>
+                        <td>
+                            {{ line.product.price }}
+                        </td>
+                        <td>
+                            {{ line.quantity }}
+                        </td>
+                        <td>
+                            {{ line.amount }}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+{% endblock %}
