@@ -64,8 +64,8 @@
         </div>
     </li>
 
-    <li class="nav-item">
-        <a class="nav-link" href="">
+    <li class="nav-item {{ 'admin_discount' in app.request.attributes.get('_route') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ path('admin_discount_index') }}">
             <i class="fas fa-fw fa-percent"></i>
             <span>Réductions</span></a>
     </li>
