@@ -48,7 +48,7 @@ class Order
 
     /**
      * @var Collection<int, Line>
-     * @ORM\OneToMany(targetEntity="App\Entity\Order\Line", mappedBy="order")
+     * @ORM\OneToMany(targetEntity="App\Entity\Order\Line", mappedBy="order", cascade={"persist"})
      */
     private Collection $lines;
 
@@ -142,7 +142,9 @@ class Order
             $line = new Line();
 
             $line->setProduct($product)
-                ->setOrder($this);
+                ->setOrder($this)
+                ->setAmount($product->getPrice());
+
 
             $this->lines->add($line);
         }

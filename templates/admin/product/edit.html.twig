@@ -1,0 +1,57 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title "Édition" %}
+
+{% block body %}
+    <div class="mb-3">
+        <h2 class="mb-0 text-secondary">Édition du produit <span class="text-primary font-weight-normal">{{ product.title }}</span></h2>
+        <small class="h6 mt-3 text-gray-600">{{ product.id }}</small>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Informations du produit</h6>
+                </div>
+                <div class="card-body">
+                    {{ form_start(form) }}
+
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            {{ form_row(form.name) }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            {{ form_row(form.price) }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            {{ form_row(form.enabled) }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            {{ form_row(form.categories) }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="submit" class="btn btn-success mt-3">Enregistrer</button>
+                        </div>
+                    </div>
+
+                        {{ form_row(form._token) }}
+
+                    {{ form_end(form, {render_rest: false}) }}
+                </div>
+            </div>
+        </div>
+{% endblock %}
+

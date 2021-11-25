@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Administrator;
+use App\Entity\Category;
 use App\Entity\Color;
 use App\Entity\Customer;
 use App\Entity\Discount;
@@ -44,12 +45,26 @@ class ProductFixtures extends Fixture
             $manager->persist($color);
         }
 
+        for ($i = 0; $i < 3; $i++) {
+            $category = new Category();
+
+            $category->setTitle("Categorie $i")
+                ->setEnabled(true)
+            ;
+
+            $manager->persist($category);
+        }
+
         for ($i = 0; $i < 5; $i++) {
             $product = new Product();
 
             $product->setEnabled(true)
                 ->setName("Produit $i")
                 ->setPrice(($i+1*7))
+                ->addCategory(
+                    (new Category())->setEnabled(true)
+                    ->setTitle("ADZD")
+                )
                 ->addStock(
                     (new Stock())->setEnabled(true)
                         ->setProduct(null)
