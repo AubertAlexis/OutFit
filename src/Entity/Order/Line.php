@@ -35,9 +35,9 @@ class Line
     private Product $product;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="float")
      */
-    private int $amount = 0;
+    private float $amount = 0;
 
     /**
      * @ORM\Column(type="integer")
@@ -97,12 +97,12 @@ class Line
         return $this;
     }
 
-    public function getAmount(): int
+    public function getAmount(): float
     {
         return $this->amount;
     }
 
-    public function setAmount(int $amount): self
+    public function setAmount(float $amount): self
     {
         $this->amount = $amount;
         return $this;
