@@ -44,9 +44,9 @@ class Stock
 
     /**
      * @ORM\ManyToOne(targetEntity=Product::class, inversedBy="stocks")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
-    private Product $product;
+    private ?Product $product;
 
     /**
      * @ORM\Column(type="datetime_immutable")
@@ -126,12 +126,12 @@ class Stock
         return $this;
     }
 
-    public function getProduct(): Product
+    public function getProduct(): ?Product
     {
         return $this->product;
     }
 
-    public function setProduct(Product $product): self
+    public function setProduct(?Product $product): self
     {
         $this->product = $product;
 
