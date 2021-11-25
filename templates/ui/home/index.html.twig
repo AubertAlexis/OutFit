@@ -1,5 +1,17 @@
-{% include 'ui/base.html.twig' %}
+{% extends 'ui/base.html.twig' %}
 
 {% block body %}
-<h1>Home page</h1>
+
+    {% include 'ui/home/components/_hero.html.twig' %}
+
+    {% include 'ui/home/components/_banner.html.twig' %}
+
+    {% include 'ui/home/components/_product.html.twig' %}
+
+    {% include 'ui/home/components/_categories.html.twig' %}
+
+    {% include 'ui/home/components/_insta.html.twig' %}
+
+    {% include 'ui/home/components/_latest.html.twig' %}
+
 {% endblock %}
