@@ -1,0 +1,63 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title "commandes" %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('admin_order') }}
+{% endblock %}
+
+{% block body %}
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Commandes</h1>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 d-flex align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Informations sur les commandes</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="orderTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Uuid</th>
+                                    <th>Client</th>
+                                    <th>Number</th>
+                                    <th>Status</th>
+                                    <th>Création</th>
+                                    <th>Édition</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for order in orders %}
+                                    <tr>
+                                        <td>{{ order.id }}</td>
+                                        <td>
+                                            {{ order.customer.fullName }}
+                                        </td>
+                                        <td>
+                                            {{ order.number }}
+                                        </td>
+                                        <td>
+                                            {{ order.state }}
+                                        </td>
+                                        <td>{{ order.createdAt|date('d/m/Y H:i:s') }}</td>
+                                        <td>{{ order.updatedAt|date('d/m/Y H:i:s') }}</td>
+                                        <td class="d-flex">
+{#                                            <a href="{{ path('admin_order_edit', {id: order.id}) }}" class="btn btn-sm btn-rounded btn-primary mr-2">#}
+{#                                                <i class="fas fa-pencil-alt"></i>#}
+{#                                            </a>#}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
