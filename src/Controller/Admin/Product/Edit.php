@@ -5,6 +5,7 @@ namespace App\Controller\Admin\Product;
 
 
 use App\Entity\Product;
+use App\Entity\Stock;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Form\ProductType;
@@ -27,6 +28,10 @@ class Edit extends AbstractController
             ->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            /** @var Stock $stock */
+            foreach ($product->getStocks() as $stock) {
+                $stock->setProduct($product);
+            }
             $manager->flush();
 
             $this->addFlash('success', 'Le produit a bien été modifié.');

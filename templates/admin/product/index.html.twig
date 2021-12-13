@@ -55,7 +55,7 @@
                                         <td class="align-middle">{{ product.updatedAt|date('d/m/Y H:i:s') }}</td>
                                         <td>
                                             {% for category in product.categories %}
-                                                {{ category.title }} {{ loop.index != 1 ? ", " : "" }}
+                                                {{ category.title }}{{ loop.last ? "" : ", " }}
                                             {% endfor %}
                                         </td>
 

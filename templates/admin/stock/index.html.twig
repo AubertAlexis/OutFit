@@ -1,0 +1,70 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title "Stock" %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('admin_stock') }}
+{% endblock %}
+
+{% block body %}
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Stocks</h1>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 d-flex align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Informations sur les stocks</h6>
+                    <a href="{{ path('admin_stock_add') }}" class="btn btn-success btn-sm btn-icon-split">
+                        <span class="icon text-white-50">
+                            <i class="fas fa-plus"></i>
+                        </span>
+                        <span class="text">Ajouter un stock</span>
+                    </a>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="stockTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Uuid</th>
+                                    <th>Quantité</th>
+                                    <th>Couleur</th>
+                                    <th>Taille</th>
+                                    <th>Création</th>
+                                    <th>Édition</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for stock in stocks %}
+                                    <tr>
+                                        <td class="align-middle">{{ stock.id }}</td>
+                                        <td class="align-middle">{{ stock.quantity }}</td>
+                                        <td class="align-middle">{{ stock.color.title }}</td>
+                                        <td class="align-middle">{{ stock.size.title }}</td>
+                                        <td class="align-middle">{{ stock.createdAt|date('d/m/Y H:i:s') }}</td>
+                                        <td class="align-middle">{{ stock.updatedAt|date('d/m/Y H:i:s') }}</td>
+                                        <td class="d-flex">
+                                            <a href="{{ path('admin_stock_edit', {id: stock.id}) }}" class="btn btn-sm btn-rounded btn-primary mr-2">
+                                                <i class="fas fa-pencil-alt"></i>
+                                            </a>
+                                            <form action="{{ url('admin_stock_delete', { id: stock.id }) }}" method="post">
+                                                <input type="hidden" name="token" value="{{ csrf_token('delete-stock') }}"/>
+
+                                                <button type="submit" class="btn btn-sm btn-rounded btn-danger">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

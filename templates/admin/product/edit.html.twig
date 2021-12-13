@@ -4,7 +4,7 @@
 
 {% block body %}
     <div class="mb-3">
-        <h2 class="mb-0 text-secondary">Édition du produit <span class="text-primary font-weight-normal">{{ product.title }}</span></h2>
+        <h2 class="mb-0 text-secondary">Édition du produit <span class="text-primary font-weight-normal">{{ product.name }}</span></h2>
         <small class="h6 mt-3 text-gray-600">{{ product.id }}</small>
     </div>
 
@@ -38,6 +38,12 @@
                     <div class="row">
                         <div class="col-md-6 col-sm-12">
                             {{ form_row(form.categories) }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            {{ form_row(form.stocks) }}
                         </div>
                     </div>
 

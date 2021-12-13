@@ -1,0 +1,56 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title "Ajout" %}
+
+{% block body %}
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Ajouter un stock</h1>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Informations sur le stock</h6>
+                </div>
+                <div class="card-body">
+                    {{ form_start(form) }}
+
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12">
+                                {{ form_row(form.quantity) }}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12">
+                                {{ form_row(form.size) }}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12">
+                                {{ form_row(form.color) }}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12">
+                                {{ form_row(form.enabled) }}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-success mt-3">Enregistrer</button>
+                            </div>
+                        </div>
+
+                        {{ form_row(form._token) }}
+
+                    {{ form_end(form, {render_rest: false}) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
