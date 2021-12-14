@@ -3,7 +3,14 @@ declare(strict_types=1);
 
 namespace App\Controller\UI\Shop;
 
+use App\Entity\Order\Line;
+use App\Entity\Order\Order;
+use App\Entity\Product;
+use App\Repository\CustomerRepository;
+use App\Repository\Order\OrderRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -12,10 +19,111 @@ class Cart extends AbstractController
 
     /**
      * @Route("/boutique/panier", name="ui_shop_cart")
+     * @param CustomerRepository $customerRepository
+     * @param OrderRepository $orderRepository
+     * @return Response
      */
-    public function cart(): Response
+    public function cart(CustomerRepository $customerRepository, OrderRepository $orderRepository): Response
     {
-        return $this->render('ui/shop/cart.html.twig');
+        $customer = $customerRepository->findOneBy([]);
+
+        $order = $orderRepository->findOneBy([
+            'customer' => $customer,
+            'state' => Order::CART
+        ]);
+
+        $total = 0;
+        if ($order) {
+            /** @var Line $line */
+            foreach ($order->getLines() as $line) {
+                $total += $line->getAmount();
+            }
+        }
+
+        return $this->render('ui/shop/cart.html.twig', [
+            'order' => $order,
+            'total' => $total
+        ]);
     }
 
+    /**
+     * @Route("/boutique/panier/{type}/{id}", name="ui_shop_cart_handle", defaults={"type": "increase"}, priority="0")
+     * @param string $type
+     * @param Product $product
+     * @param CustomerRepository $customerRepository
+     * @param OrderRepository $orderRepository
+     * @param EntityManagerInterface $entityManager
+     * @return RedirectResponse
+     */
+    public function handle(
+        string $type,
+        Product $product,
+        CustomerRepository $customerRepository,
+        OrderRepository $orderRepository,
+        EntityManagerInterface $entityManager
+    ): RedirectResponse
+    {
+        $customer = $customerRepository->findOneBy([]);
+
+        $order = $orderRepository->findOneBy([
+            'customer' => $customer,
+            'state' => Order::CART
+        ]);
+
+        if (!$order) {
+            $order = new Order();
+            $order
+                ->setNumber($customer->getId()->__toString())
+                ->setState(Order::CART)
+                ->setCustomer($customer)
+            ;
+
+            $entityManager->persist($order);
+        }
+
+        if ($type === 'increase') {
+            $order->addProduct($product);
+        } else {
+            $order->decreaseProduct($product);
+        }
+
+        $entityManager->flush();
+
+        return $this->redirectToRoute('ui_shop_cart');
+    }
+
+    /**
+     * @Route("/boutique/panier/{id}/remove", name="ui_shop_cart_remove", priority="1")
+     * @param Line $line
+     * @param CustomerRepository $customerRepository
+     * @param OrderRepository $orderRepository
+     * @param EntityManagerInterface $entityManager
+     * @return RedirectResponse
+     */
+    public function remove(
+        Line $line,
+        CustomerRepository $customerRepository,
+        OrderRepository $orderRepository,
+        EntityManagerInterface $entityManager
+    ): RedirectResponse
+    {
+        $customer = $customerRepository->findOneBy([]);
+
+        $order = $orderRepository->findOneBy([
+            'customer' => $customer,
+            'state' => Order::CART
+        ]);
+
+        if (!$order) {
+            return $this->redirectToRoute('ui_shop_cart');
+        }
+
+        if ($order->getLines()->contains($line)) {
+            $entityManager->remove($line);
+        }
+
+        $entityManager->flush();
+
+        return $this->redirectToRoute('ui_shop_cart');
+    }
 }

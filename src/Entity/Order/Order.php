@@ -150,6 +150,24 @@ class Order
         }
 
         $line->increaseQuantity();
+        $line->setAmount((float) $line->getQuantity() * $product->getPrice());
+
+        return $this;
+    }
+
+    public function decreaseProduct(Product $product): self
+    {
+        $lines = $this->lines->filter(fn (Line $line) => $line->getProduct() === $product);
+
+        $line = $lines->first();
+
+        if ($line === false) {
+            return $this;
+        }
+
+        $line->decreaseQuantity();
+        $line->setAmount((float) $line->getQuantity() * $product->getPrice());
+
         return $this;
     }
 
