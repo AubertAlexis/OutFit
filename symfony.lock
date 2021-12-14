@@ -252,6 +252,9 @@
             "./phpcs.xml.dist"
         ]
     },
+    "stripe/stripe-php": {
+        "version": "v7.107.0"
+    },
     "symfony/asset": {
         "version": "v5.3.4"
     },
