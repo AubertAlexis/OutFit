@@ -199,7 +199,7 @@
                                 </div>
                                 <div class="product__item__text">
                                     <h6>{{ product.name }}</h6>
-                                    <a href="#" class="add-cart d-block">Ajouter au panier</a>
+                                    <a href="{{ path('ui_shop_cart_handle', {id: product.id}) }}" class="add-cart d-block">Ajouter au panier</a>
                                     <h5>{{ product.price }}€</h5>
                                     <div class="product__color__select">
                                         {% for stock in product.stocks %}

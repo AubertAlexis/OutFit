@@ -171,6 +171,21 @@ class Order
         return $this;
     }
 
+    /**
+     * @param false $cent
+     * @return float|int
+     */
+    public function getTotal($cent = false)
+    {
+        $total = 0;
+        /** @var Line $line */
+        foreach ($this->lines as $line) {
+            $total += $line->getAmount();
+        }
+
+        return $cent ? (int) $total*100 : $total;
+    }
+
     public function getStripeId(): ?string
     {
         return $this->stripeId;
