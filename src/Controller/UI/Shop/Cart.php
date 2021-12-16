@@ -32,17 +32,11 @@ class Cart extends AbstractController
             'state' => Order::CART
         ]);
 
-        $total = 0;
-        if ($order) {
-            /** @var Line $line */
-            foreach ($order->getLines() as $line) {
-                $total += $line->getAmount();
-            }
-        }
+        if(!$order) return $this->redirectToRoute('ui_shop_index');
 
         return $this->render('ui/shop/cart.html.twig', [
             'order' => $order,
-            'total' => $total
+            'total' => $order->getTotal()
         ]);
     }
 
