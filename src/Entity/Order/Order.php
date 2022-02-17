@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Entity\Order;
 
 use App\Entity\Customer;
+use App\Entity\Delivery;
 use App\Entity\Product;
 use App\Repository\Order\OrderRepository;
 use DateTimeImmutable;
@@ -66,6 +67,11 @@ class Order
      * @ORM\Column(type="datetime_immutable")
      */
     private DateTimeImmutable $updatedAt;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Delivery::class, inversedBy="orders")
+     */
+    private $delivery;
 
     public function __construct()
     {
@@ -206,5 +212,17 @@ class Order
     public function getUpdatedAt(): DateTimeImmutable
     {
         return $this->updatedAt;
+    }
+
+    public function getDelivery(): ?Delivery
+    {
+        return $this->delivery;
+    }
+
+    public function setDelivery(?Delivery $delivery): self
+    {
+        $this->delivery = $delivery;
+
+        return $this;
     }
 }
