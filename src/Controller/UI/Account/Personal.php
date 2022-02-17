@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controller\UI\Account;
 
 use App\Entity\Customer;
+use App\Entity\User;
 use App\Form\CustomerType;
 use App\Repository\CustomerRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -24,7 +25,9 @@ class Personal extends AbstractController
      */
     public function personal(CustomerRepository $customerRepository, Request $request, EntityManagerInterface $manager): Response
     {
-        $customer = $customerRepository->findOneBy([]);
+        /** @var User $user */
+        $user = $this->getUser();
+        $customer = $user->getCustomer();
 
         $form = $this->createForm(CustomerType::class, $customer)->handleRequest($request);
 

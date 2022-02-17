@@ -34,6 +34,7 @@ class ClientFixtures extends Fixture
                 ->setPassword($this->passwordHasher->hashPassword($user, "password"))
                 ->setRoles([User::ROLE_CUSTOMER]);
 
+            $manager->persist($user);
             $manager->persist($customer);
         }
 

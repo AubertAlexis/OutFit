@@ -8,8 +8,8 @@ security:
     providers:
         users_in_database:
             entity:
-                class: App\Entity\Customer
-                property: user_email
+                class: App\Entity\User
+                property: email
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
