@@ -5,12 +5,15 @@ namespace App\Entity;
 
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Embeddable()
+ * @method string getUserIdentifier()
  */
-class User
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     const ROLE_CUSTOMER = 'ROLE_CUSTOMER';
     const ROLE_ADMINISTRATOR = 'ROLE_ADMINISTRATOR';
@@ -123,5 +126,25 @@ class User
         $this->suspendedAt = $suspendedAt;
 
         return $this;
+    }
+
+    public function getSalt()
+    {
+        // TODO: Implement getSalt() method.
+    }
+
+    public function eraseCredentials()
+    {
+        // TODO: Implement eraseCredentials() method.
+    }
+
+    public function getUsername()
+    {
+        return (string) $this->email;
+    }
+
+    public function __call($name, $arguments)
+    {
+        // TODO: Implement @method string getUserIdentifier()
     }
 }
