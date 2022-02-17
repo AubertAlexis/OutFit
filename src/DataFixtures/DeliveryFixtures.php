@@ -15,11 +15,15 @@ class DeliveryFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
+        $deliveries = array (
+            array("Standard","Rapide","Express"),
+            array(3,7,12),
+        );
         for ($i = 0; $i < 3; $i++) {
             $delivery = new Delivery();
 
-            $delivery->setTitle("Methode $i")
-                ->setPrice(($i + 1) * 3)
+            $delivery->setTitle($deliveries[0][$i])
+                ->setPrice($deliveries[1][$i])
                 ->setEnabled(true)
             ;
 

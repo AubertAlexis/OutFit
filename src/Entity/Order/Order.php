@@ -71,7 +71,7 @@ class Order
     /**
      * @ORM\ManyToOne(targetEntity=delivery::class, inversedBy="orders")
      */
-    private $delivery;
+    private ?Delivery $delivery;
 
     public function __construct()
     {
