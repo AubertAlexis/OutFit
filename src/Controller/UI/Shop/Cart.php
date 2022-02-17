@@ -3,10 +3,12 @@ declare(strict_types=1);
 
 namespace App\Controller\UI\Shop;
 
+use App\Entity\Delivery;
 use App\Entity\Order\Line;
 use App\Entity\Order\Order;
 use App\Entity\Product;
 use App\Repository\CustomerRepository;
+use App\Repository\DeliveryRepository;
 use App\Repository\Order\OrderRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,24 +23,33 @@ class Cart extends AbstractController
      * @Route("/boutique/panier", name="ui_shop_cart")
      * @param CustomerRepository $customerRepository
      * @param OrderRepository $orderRepository
+     * @param DeliveryRepository $deliveryRepository
      * @return Response
      */
-    public function cart(CustomerRepository $customerRepository, OrderRepository $orderRepository): Response
+    public function cart(
+        CustomerRepository $customerRepository,
+        OrderRepository $orderRepository,
+        DeliveryRepository $deliveryRepository
+    ): Response
     {
         $customer = $customerRepository->findOneBy([]);
+
+        $deliveries = $deliveryRepository->findAll();
 
         $order = $orderRepository->findOneBy([
             'customer' => $customer,
             'state' => Order::CART
         ]);
 
-        if(!$order) return $this->redirectToRoute('ui_shop_index');
+        if (!$order) return $this->redirectToRoute('ui_shop_index');
 
         return $this->render('ui/shop/cart.html.twig', [
             'order' => $order,
-            'total' => $order->getTotal()
+            'total' => $order->getTotal(),
+            'deliveries' => $deliveries
         ]);
     }
+
 
     /**
      * @Route("/boutique/panier/{type}/{id}", name="ui_shop_cart_handle", defaults={"type": "increase"}, priority="0")
@@ -120,4 +131,38 @@ class Cart extends AbstractController
 
         return $this->redirectToRoute('ui_shop_cart');
     }
+
+    /**
+     * @Route("/boutique/panier/{id}/delivery", name="ui_shop_cart_delivery", priority="1")
+     * @param Delivery $delivery
+     * @param CustomerRepository $customerRepository
+     * @param OrderRepository $orderRepository
+     * @param EntityManagerInterface $entityManager
+     * @return RedirectResponse
+     */
+    public function delivery(
+        Delivery $delivery,
+        CustomerRepository $customerRepository,
+        OrderRepository $orderRepository,
+        EntityManagerInterface $entityManager
+    ): RedirectResponse
+    {
+        $customer = $customerRepository->findOneBy([]);
+
+        $order = $orderRepository->findOneBy([
+            'customer' => $customer,
+            'state' => Order::CART
+        ]);
+
+        if (!$order) {
+            return $this->redirectToRoute('ui_shop_cart');
+        }
+
+        $order->setDelivery($delivery);
+
+        $entityManager->flush();
+
+        return $this->redirectToRoute('ui_shop_cart');
+    }
+
 }

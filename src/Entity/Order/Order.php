@@ -188,8 +188,11 @@ class Order
         foreach ($this->lines as $line) {
             $total += $line->getAmount();
         }
+        if ($this->delivery) {
+            $total += $this->delivery->getPrice();
+        }
 
-        return $cent ? (int) $total*100 : $total;
+        return $cent ? (int) $total * 100 : $total;
     }
 
     public function getStripeId(): ?string
