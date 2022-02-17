@@ -13,6 +13,9 @@ use Symfony\Component\Uid\UuidV4;
  */
 class Address
 {
+    public const BILLING = 'billing';
+    public const DELIVERY = 'delivery';
+
     /**
      * @ORM\Id
      * @ORM\Column(type="uuid")
@@ -69,6 +72,7 @@ class Address
     {
         $this->id = new UuidV4();
         $this->createdAt = new DateTimeImmutable();
+        $this->enabled = true;
     }
 
     public function getId(): UuidV4

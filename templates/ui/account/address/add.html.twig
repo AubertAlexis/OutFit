@@ -1,0 +1,76 @@
+{% extends 'ui/base.html.twig' %}
+
+{% block body %}
+
+    <!-- Checkout Section Begin -->
+    <section class="checkout spad">
+        <div class="container">
+            <div class="checkout__form">
+                {{ form_start(form) }}
+                <div class="row">
+                    <div class="col-lg-8 col-md-6">
+
+                        <div class="row">
+                            <div class="col-lg-5">
+                                <div class="checkout__input">
+                                    {{ form_row(form.type) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="checkout__input">
+                                    {{ form_row(form.number) }}
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="checkout__input">
+                                    {{ form_row(form.street) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="checkout__input">
+                                    {{ form_row(form.city) }}
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="checkout__input">
+                                    {{ form_row(form.zip) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <div class="checkout__input">
+                                    {{ form_row(form.selected) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm">
+                                <button type="submit" class="btn btn-sm btn-rounded btn-primary">
+                                    Enregistrer
+                                </button>
+                            </div>
+                        </div>
+
+
+                        {{ form_row(form._token) }}
+                        {{ form_end(form, {render_rest: false}) }}
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+    <!-- Checkout Section End -->
+
+{% endblock %}
