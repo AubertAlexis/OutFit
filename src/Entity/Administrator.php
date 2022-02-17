@@ -23,8 +23,8 @@ class Administrator
     private UuidV4 $id;
 
     /**
-     * @ORM\Embedded(class="User")
-     * @Assert\Valid()
+     * @ORM\OneToOne(targetEntity=User::class, inversedBy="administrator", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
      */
     private User $user;
 
@@ -38,7 +38,7 @@ class Administrator
      */
     public function setUpdatedAt(): void
     {
-        $this->user->setUpdatedAt(new DateTimeImmutable());
+        $this->user->setUpdatedAt();
     }
 
     public function getId(): UuidV4
@@ -46,14 +46,15 @@ class Administrator
         return $this->id;
     }
 
-    public function getUser(): User
+    public function getUser(): ?User
     {
         return $this->user;
     }
 
-    public function setUser(User $user): Administrator
+    public function setUser(User $user): self
     {
         $this->user = $user;
+
         return $this;
     }
 }

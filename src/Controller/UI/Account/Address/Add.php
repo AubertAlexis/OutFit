@@ -3,6 +3,7 @@
 namespace App\Controller\UI\Account\Address;
 
 use App\Entity\Address;
+use App\Entity\User;
 use App\Form\AddressType;
 use App\Repository\CustomerRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -17,12 +18,13 @@ class Add extends AbstractController
      * @Route("/mon-compte/addresse", name="ui_account_address_add", methods={"GET", "POST"})
      * @param Request $request
      * @param EntityManagerInterface $manager
-     * @param CustomerRepository $customerRepository
      * @return Response
      */
-    public function index(CustomerRepository $customerRepository, Request $request, EntityManagerInterface $manager): Response
+    public function index(Request $request, EntityManagerInterface $manager): Response
     {
-        $customer = $customerRepository->findOneBy([]);
+        /** @var User $user */
+        $user = $this->getUser();
+        $customer = $user->getCustomer();
         $address = new Address();
         $address->setCustomer($customer);
 

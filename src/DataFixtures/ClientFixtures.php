@@ -11,11 +11,11 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class ClientFixtures extends Fixture
 {
-    private UserPasswordHasherInterface $passwordHaser;
+    private UserPasswordHasherInterface $passwordHasher;
 
     public function __construct(UserPasswordHasherInterface $passwordHasher)
     {
-        $this->passwordHaser = $passwordHasher;
+        $this->passwordHasher = $passwordHasher;
     }
 
     public function load(ObjectManager $manager): void
@@ -31,9 +31,10 @@ class ClientFixtures extends Fixture
             ;
 
             $user->setEmail("customer+$i@gmail.com")
-                ->setPassword("password")
+                ->setPassword($this->passwordHasher->hashPassword($user, "password"))
                 ->setRoles([User::ROLE_CUSTOMER]);
 
+            $manager->persist($user);
             $manager->persist($customer);
         }
 

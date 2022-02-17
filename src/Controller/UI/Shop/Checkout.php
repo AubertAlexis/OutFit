@@ -6,6 +6,7 @@ namespace App\Controller\UI\Shop;
 use _PHPStan_76800bfb5\Nette\Neon\Exception;
 use App\DataTransfertObject\Payment;
 use App\Entity\Order\Order;
+use App\Entity\User;
 use App\Form\StripeType;
 use App\Repository\CustomerRepository;
 use App\Repository\Order\OrderRepository;
@@ -36,7 +37,6 @@ class Checkout extends AbstractController
     /**
      * @Route("/boutique/paiement", name="ui_shop_checkout")
      * @param Request $request
-     * @param CustomerRepository $customerRepository
      * @param OrderRepository $orderRepository
      * @return Response
      * @throws Exception
@@ -44,11 +44,12 @@ class Checkout extends AbstractController
      */
     public function checkout(
         Request $request,
-        CustomerRepository $customerRepository,
         OrderRepository $orderRepository
     ): Response
     {
-        $customer = $customerRepository->findOneBy([]);
+        /** @var User $user */
+        $user = $this->getUser();
+        $customer = $user->getCustomer();
         $paymentObject = new Payment();
 
         $form = $this->createForm(StripeType::class, $paymentObject)->handleRequest($request);

@@ -24,11 +24,6 @@ class Customer
     private UuidV4 $id;
 
     /**
-     * @ORM\Embedded(class="User")
-     */
-    private User $user;
-
-    /**
      * @var Collection<int, Address>
      * @ORM\OneToMany(targetEntity=Address::class, mappedBy="customer", orphanRemoval=true)
      */
@@ -60,6 +55,12 @@ class Customer
      */
     private ?string $stripeId;
 
+    /**
+     * @ORM\OneToOne(targetEntity=User::class, inversedBy="customer", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private User $user;
+
     public function __construct()
     {
         $this->id = new UuidV4();
@@ -72,7 +73,7 @@ class Customer
      */
     public function setUpdatedAt(): void
     {
-        $this->user->setUpdatedAt(new DateTimeImmutable());
+        $this->user->setUpdatedAt();
     }
 
     public function getFullName(): string
@@ -179,14 +180,15 @@ class Customer
         return $this;
     }
 
-    public function getUser(): User
+    public function getUser(): ?User
     {
         return $this->user;
     }
 
-    public function setUser(User $user): Customer
+    public function setUser(User $user): self
     {
         $this->user = $user;
+
         return $this;
     }
 }
