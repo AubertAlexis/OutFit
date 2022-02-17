@@ -44,9 +44,10 @@ class Delivery
     private DateTimeImmutable $createdAt;
 
     /**
+     * @var Collection<int, Order>
      * @ORM\OneToMany(targetEntity=Order::class, mappedBy="delivery")
      */
-    private $orders;
+    private Collection $orders;
 
     public function __construct()
     {

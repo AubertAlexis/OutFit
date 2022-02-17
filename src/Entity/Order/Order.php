@@ -69,7 +69,7 @@ class Order
     private DateTimeImmutable $updatedAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Delivery::class, inversedBy="orders")
+     * @ORM\ManyToOne(targetEntity=delivery::class, inversedBy="orders")
      */
     private $delivery;
 

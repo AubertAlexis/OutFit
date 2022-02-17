@@ -1,0 +1,72 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title "Méthodes de livraison" %}
+
+{% block body %}
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Méthodes de livraison</h1>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 d-flex align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Informations sur les Méthodes de livraison</h6>
+                    <a href="{{ path('admin_delivery_add') }}" class="btn btn-success btn-sm btn-icon-split">
+                        <span class="icon text-white-50">
+                            <i class="fas fa-plus"></i>
+                        </span>
+                        <span class="text">Ajouter une Méthode de livraison</span>
+                    </a>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="deliveryTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Uuid</th>
+                                    <th>Nom</th>
+                                    <th>Montant</th>
+                                    <th>Création</th>
+                                    <th>Active</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for delivery in deliveries %}
+                                    <tr>
+                                        <td>{{ delivery.id }}</td>
+                                        <td>{{ delivery.title }}</td>
+                                        <td class="text-primary">
+                                            {{ delivery.price }}
+                                        </td>
+                                        <td>{{ delivery.createdAt|date('d/m/Y H:i:s') }}</td>
+                                        <td>
+                                            {% if delivery.enabled %}
+                                                <span>Oui</span>
+                                            {% else %}
+                                                <span>Non</span>
+                                            {% endif %}
+                                        </td>
+                                        <td class="d-flex">
+                                            <a href="{{ path('admin_delivery_edit', {id: delivery.id}) }}" class="btn btn-sm btn-rounded btn-primary mr-2">
+                                                <i class="fas fa-pencil-alt"></i>
+                                            </a>
+                                            <form action="{{ url('admin_delivery_delete', { id: delivery.id }) }}" method="post">
+                                                <input type="hidden" name="token" value="{{ csrf_token('delete-delivery') }}"/>
+
+                                                <button type="submit" class="btn btn-sm btn-rounded btn-danger">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

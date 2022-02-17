@@ -20,7 +20,7 @@ class DeliveryRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return Delivery[] Returns an array of Delivery objects
+    //  * @return delivery[] Returns an array of delivery objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class DeliveryRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Delivery
+    public function findOneBySomeField($value): ?delivery
     {
         return $this->createQueryBuilder('d')
             ->andWhere('d.exampleField = :val')

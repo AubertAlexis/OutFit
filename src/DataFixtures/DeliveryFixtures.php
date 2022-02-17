@@ -19,7 +19,7 @@ class DeliveryFixtures extends Fixture
             $delivery = new Delivery();
 
             $delivery->setTitle("Methode $i")
-                ->setPrice(($i+1)*3)
+                ->setPrice(($i + 1) * 3)
                 ->setEnabled(true)
             ;
 
