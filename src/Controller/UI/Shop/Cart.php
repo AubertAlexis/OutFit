@@ -6,6 +6,7 @@ namespace App\Controller\UI\Shop;
 use App\Entity\Order\Line;
 use App\Entity\Order\Order;
 use App\Entity\Product;
+use App\Entity\User;
 use App\Repository\CustomerRepository;
 use App\Repository\Order\OrderRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -19,13 +20,14 @@ class Cart extends AbstractController
 
     /**
      * @Route("/boutique/panier", name="ui_shop_cart")
-     * @param CustomerRepository $customerRepository
      * @param OrderRepository $orderRepository
      * @return Response
      */
-    public function cart(CustomerRepository $customerRepository, OrderRepository $orderRepository): Response
+    public function cart(OrderRepository $orderRepository): Response
     {
-        $customer = $customerRepository->findOneBy([]);
+        /** @var User $user */
+        $user = $this->getUser();
+        $customer = $user->getCustomer();
 
         $order = $orderRepository->findOneBy([
             'customer' => $customer,

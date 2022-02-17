@@ -20,10 +20,9 @@ class Personal extends AbstractController
      * @Route("/mon-compte/informations", name="ui_account_personal", methods={"GET", "POST"})
      * @param Request $request
      * @param EntityManagerInterface $manager
-     * @param CustomerRepository $customerRepository
      * @return Response
      */
-    public function personal(CustomerRepository $customerRepository, Request $request, EntityManagerInterface $manager): Response
+    public function personal(Request $request, EntityManagerInterface $manager): Response
     {
         /** @var User $user */
         $user = $this->getUser();
