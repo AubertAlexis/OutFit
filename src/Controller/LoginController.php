@@ -10,6 +10,14 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class LoginController extends AbstractController
 {
     /**
+     * @Route("/logout", name="logout", methods={"GET"})
+     */
+    public function logout(): void
+    {
+
+    }
+
+    /**
      * @Route("/login", name="login")
      * @param AuthenticationUtils $authenticationUtils
      * @return Response

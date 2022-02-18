@@ -22,6 +22,8 @@ class Add extends AbstractController
      */
     public function index(Request $request, EntityManagerInterface $manager): Response
     {
+        $this->denyAccessUnlessGranted(User::ROLE_CUSTOMER);
+
         /** @var User $user */
         $user = $this->getUser();
         $customer = $user->getCustomer();

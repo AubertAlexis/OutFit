@@ -25,6 +25,8 @@ class Cart extends AbstractController
      */
     public function cart(OrderRepository $orderRepository): Response
     {
+        $this->denyAccessUnlessGranted(User::ROLE_CUSTOMER);
+
         /** @var User $user */
         $user = $this->getUser();
         $customer = $user->getCustomer();
