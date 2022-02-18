@@ -7,6 +7,7 @@ use App\Entity\Delivery;
 use App\Entity\Order\Line;
 use App\Entity\Order\Order;
 use App\Entity\Product;
+use App\Entity\User;
 use App\Repository\CustomerRepository;
 use App\Repository\DeliveryRepository;
 use App\Repository\Order\OrderRepository;
@@ -21,7 +22,6 @@ class Cart extends AbstractController
 
     /**
      * @Route("/boutique/panier", name="ui_shop_cart")
-     * @param CustomerRepository $customerRepository
      * @param OrderRepository $orderRepository
      * @param DeliveryRepository $deliveryRepository
      * @return Response
@@ -32,7 +32,11 @@ class Cart extends AbstractController
         DeliveryRepository $deliveryRepository
     ): Response
     {
-        $customer = $customerRepository->findOneBy([]);
+        $this->denyAccessUnlessGranted(User::ROLE_CUSTOMER);
+
+        /** @var User $user */
+        $user = $this->getUser();
+        $customer = $user->getCustomer();
 
         $deliveries = $deliveryRepository->findAll();
 

@@ -10,11 +10,11 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AdminFixtures extends Fixture
 {
-    private UserPasswordHasherInterface $passwordHaser;
+    private UserPasswordHasherInterface $passwordHasher;
 
     public function __construct(UserPasswordHasherInterface $passwordHasher)
     {
-        $this->passwordHaser = $passwordHasher;
+        $this->passwordHasher = $passwordHasher;
     }
 
     public function load(ObjectManager $manager): void
@@ -26,9 +26,10 @@ class AdminFixtures extends Fixture
             $administrator->setUser($user);
 
             $user->setEmail("admin+$i@gmail.com")
-                ->setPassword("password")
+                ->setPassword($this->passwordHasher->hashPassword($user, "password"))
                 ->setRoles([User::ROLE_ADMINISTRATOR]);
 
+            $manager->persist($user);
             $manager->persist($administrator);
         }
 
