@@ -24,6 +24,8 @@ class Personal extends AbstractController
      */
     public function personal(Request $request, EntityManagerInterface $manager): Response
     {
+        $this->denyAccessUnlessGranted(User::ROLE_CUSTOMER);
+
         /** @var User $user */
         $user = $this->getUser();
         $customer = $user->getCustomer();

@@ -47,6 +47,8 @@ class Checkout extends AbstractController
         OrderRepository $orderRepository
     ): Response
     {
+        $this->denyAccessUnlessGranted(User::ROLE_CUSTOMER);
+
         /** @var User $user */
         $user = $this->getUser();
         $customer = $user->getCustomer();
