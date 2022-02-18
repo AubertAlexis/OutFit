@@ -63,7 +63,25 @@
                     </form>
                 </div>
                 <div class="cart__total">
-                    <h6>Cart total</h6>
+                    <h6>Livraison</h6>
+                    {% if order is not null %}
+                        <ul>
+                        {% for delivery in deliveries %}
+                            <li>
+                                <a href="{{ path('ui_shop_cart_delivery', {id: delivery.id}) }}">
+                                    <input type="radio" id="{{ delivery.id }}" name="delivery" value="{{ delivery.id }}"{% if order.delivery == delivery %}checked{% endif %}>
+                                </a>
+                                <label for="{{ delivery.id }}">{{ delivery.title }}</label>
+                                <span>{{ delivery.price }}€</span>
+                            </li>
+                        {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>Aucun panier de créé</p>
+                    {% endif %}
+                </div>
+                <div class="cart__total">
+                    <h6>Cart total</h6>*
                     <ul>
                         <li>Total <span>{{ total }}€</span></li>
                     </ul>
