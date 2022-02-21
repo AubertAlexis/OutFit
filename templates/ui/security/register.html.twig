@@ -1,0 +1,14 @@
+{% extends 'ui/base.html.twig' %}
+
+{% block body %}
+    {{ form_start(form) }}
+
+    <div class="row">
+        <div class="col-sm">
+            <button type="submit" class="btn btn-sm btn-rounded btn-primary">
+                Enregistrer
+            </button>
+        </div>
+    </div>
+    {{ form_end(form) }}
+{% endblock %}
