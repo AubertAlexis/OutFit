@@ -37,14 +37,30 @@
                         </div>
                     </div>
 
+                {{ form_row(form._token) }}
+
+                <div class="row">
+                    <div class="col-sm">
+                        <button type="submit" class="btn btn-sm btn-rounded btn-primary">
+                            Enregistrer
+                        </button>
+                    </div>
+                </div>
+
+                {{ form_end(form, {render_rest: false}) }}
+
+                <hr class="my-5">
+
+                <p>Pour créer une adresse, <a href="{{ path('ui_account_address_add') }}">cliquez ici</a></p>
+
                 <table class="table table-bordered" id="addressTable" width="100%" cellspacing="0">
                     <thead>
-                        <tr>
-                            <th>Type</th>
-                            <th>Addresse</th>
-                            <th>Ville</th>
-                            <th>Code postal</th>
-                        </tr>
+                    <tr>
+                        <th>Type</th>
+                        <th>Addresse</th>
+                        <th>Ville</th>
+                        <th>Code postal</th>
+                    </tr>
                     </thead>
                     <tbody>
                     {% for addresse in customer.addresses %}
@@ -55,29 +71,12 @@
                             <td class="align-middle">{{ addresse.zip }}</td>
                         </tr>
                     {% else %}
-                        <div class="row">
-                            <p>Il n'y a aucune adresse d'enregistrer. Pour en creer une, cliquez sur le bouton.</p>
-                        </div>
+                        <tr>
+                            <td colspan="4">Aucune adresse enregistrée</td>
+                        </tr>
                     {% endfor %}
                     </tbody>
                 </table>
-
-                    <div class="row">
-                        <div class="col-sm">
-                            <button type="submit" class="btn btn-sm btn-rounded btn-primary">
-                                Enregistrer
-                            </button>
-                        </div>
-                        <div class="col-sm">
-                            <div class="row">
-                                <a href="{{ path('ui_account_address_add') }}" class="btn btn-sm btn-primary">Ajouter une adresse</a>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    {{ form_row(form._token) }}
-                {{ form_end(form, {render_rest: false}) }}
             </div>
         </div>
     </section>

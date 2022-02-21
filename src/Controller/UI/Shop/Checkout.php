@@ -105,7 +105,8 @@ class Checkout extends AbstractController
 
         return $this->render('ui/shop/checkout.html.twig', [
             'form' => $form->createView(),
-            'stripe_pk' => $this->getParameter('stripe_pk')
+            'stripe_pk' => $this->getParameter('stripe_pk'),
+            'order' => $order
         ]);
     }
 

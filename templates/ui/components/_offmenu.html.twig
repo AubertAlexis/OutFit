@@ -3,27 +3,25 @@
 <div class="offcanvas-menu-wrapper">
     <div class="offcanvas__option">
         <div class="offcanvas__links">
-            <a href="#">Sign in</a>
-            <a href="#">FAQs</a>
-        </div>
-        <div class="offcanvas__top__hover">
-            <span>Usd <i class="arrow_carrot-down"></i></span>
-            <ul>
-                <li>USD</li>
-                <li>EUR</li>
-                <li>USD</li>
-            </ul>
+            <a href="{{ path('register') }}">Inscription</a>
+
+            {% if app.user is null %}
+                <a href="{{ path('login') }}">Connexion</a>
+            {% else %}
+                <a href="{{ path('logout') }}">Déconnexion</a>
+            {% endif %}
+
+            {% if app.user and is_granted('ROLE_ADMINISTRATOR') %}
+                <a href="{{ path('admin_dashboard_index') }}">Accès admin</a>
+            {% endif %}
         </div>
     </div>
     <div class="offcanvas__nav__option">
-        <a href="#" class="search-switch"><img src="/theme/img/icon/search.png" alt=""></a>
-        <a href="#"><img src="/theme/img/icon/heart.png" alt=""></a>
-        <a href="#"><img src="/theme/img/icon/cart.png" alt=""> <span>0</span></a>
-        <div class="price">$0.00</div>
+        <a href="{{ path('ui_shop_cart') }}"><img src="/theme/img/icon/cart.png" alt=""></a>
     </div>
     <div id="mobile-menu-wrap"></div>
     <div class="offcanvas__text">
-        <p>Free shipping, 30-day return or refund guarantee.</p>
+        <p>Livraison offerte pour toutes les commandes</p>
     </div>
 </div>
 <!-- Offcanvas Menu End -->

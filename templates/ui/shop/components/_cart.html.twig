@@ -8,8 +8,8 @@
                         <table>
                             <thead>
                             <tr>
-                                <th>Product</th>
-                                <th>Quantity</th>
+                                <th>Produit</th>
+                                <th>Quantité</th>
                                 <th>Total</th>
                                 <th></th>
                             </tr>
@@ -44,27 +44,15 @@
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-6">
                         <div class="continue__btn">
-                            <a href="{{ path('ui_shop_index') }}">Continue Shopping</a>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6">
-                        <div class="continue__btn update__btn">
-                            <a href="#"><i class="fa fa-spinner"></i> Update cart</a>
+                            <a href="{{ path('ui_shop_index') }}">Ajouter des produits</a>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4">
-                <div class="cart__discount">
-                    <h6>Discount codes</h6>
-                    <form action="#">
-                        <input type="text" placeholder="Coupon code">
-                        <button type="submit">Apply</button>
-                    </form>
-                </div>
-                <div class="cart__total">
-                    <h6>Livraison</h6>
-                    {% if order is not null %}
+            {% if order is not null %}
+                <div class="col-lg-4">
+                    <div class="cart__total">
+                        <h6>Livraison</h6>
                         <ul>
                         {% for delivery in deliveries %}
                             <li>
@@ -76,18 +64,16 @@
                             </li>
                         {% endfor %}
                         </ul>
-                    {% else %}
-                        <p>Aucun panier de créé</p>
-                    {% endif %}
+                    </div>
+                    <div class="cart__total">
+                        <h6>Total du panier</h6>
+                        <ul>
+                            <li><span>{{ total }}€</span></li>
+                        </ul>
+                        <a href="{{ path('ui_shop_checkout') }}" class="primary-btn">Récapitulatif</a>
+                    </div>
                 </div>
-                <div class="cart__total">
-                    <h6>Cart total</h6>*
-                    <ul>
-                        <li>Total <span>{{ total }}€</span></li>
-                    </ul>
-                    <a href="{{ path('ui_shop_checkout') }}" class="primary-btn">Proceed to checkout</a>
-                </div>
-            </div>
+            {% endif %}
         </div>
     </div>
 </section>

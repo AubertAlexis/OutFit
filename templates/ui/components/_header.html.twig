@@ -5,22 +5,23 @@
             <div class="row">
                 <div class="col-lg-6 col-md-7">
                     <div class="header__top__left">
-                        <p>Free shipping, 30-day return or refund guarantee.</p>
+                        <p>Livraison offerte pour toutes les commandes</p>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-5">
                     <div class="header__top__right">
-                        <div class="header__top__links">
-                            <a href="#">Sign in</a>
-                            <a href="#">FAQs</a>
-                        </div>
-                        <div class="header__top__hover">
-                            <span>Usd <i class="arrow_carrot-down"></i></span>
-                            <ul>
-                                <li>USD</li>
-                                <li>EUR</li>
-                                <li>USD</li>
-                            </ul>
+                        <div class="header__top__links mr-0">
+                            <a href="{{ path('register') }}">Inscription</a>
+
+                            {% if app.user is null %}
+                                <a href="{{ path('login') }}">Connexion</a>
+                            {% else %}
+                                <a href="{{ path('logout') }}">Déconnexion</a>
+                            {% endif %}
+
+                            {% if app.user and is_granted('ROLE_ADMINISTRATOR') %}
+                                <a href="{{ path('admin_dashboard_index') }}">Accès admin</a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -37,28 +38,16 @@
             <div class="col-lg-6 col-md-6">
                 <nav class="header__menu mobile-menu">
                     <ul>
-                        <li {% if app.request.get('_route') == 'ui_home_index' %} class="active"{% endif %}><a href="{{ path('ui_home_index') }}">Home</a></li>
-                        <li {% if app.request.get('_route') == 'ui_shop_index' %} class="active"{% endif %}><a href="{{ path('ui_shop_index') }}">Shop</a></li>
-                        <li><a href="#">Pages</a>
-                            <ul class="dropdown">
-                                <li><a href="./about.html">About Us</a></li>
-                                <li><a href="./shop-details.html">Shop Details</a></li>
-                                <li><a href="{{ path('ui_shop_cart') }}">Shopping Cart</a></li>
-                                <li><a href="./checkout.html">Check Out</a></li>
-                                <li><a href="./blog-details.html">Blog Details</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="./blog.html">Blog</a></li>
-                        <li><a href="./contact.html">Contacts</a></li>
+                        <li {% if app.request.get('_route') == 'ui_home_index' %} class="active"{% endif %}><a href="{{ path('ui_home_index') }}">Accueil</a></li>
+                        <li {% if app.request.get('_route') == 'ui_shop_index' %} class="active"{% endif %}><a href="{{ path('ui_shop_index') }}">Nos produits</a></li>
+                        <li {% if app.request.get('_route') == 'ui_account_personal' %} class="active ml-3"{% else %} class="ml-3"{% endif %}><a href="{{ path('ui_account_personal') }}">Mon profil</a></li>
+                        <li {% if app.request.get('_route') == 'ui_account_order_index' %} class="active"{% endif %}><a href="{{ path('ui_account_order_index') }}">Mes commandes</a></li>
                     </ul>
                 </nav>
             </div>
             <div class="col-lg-3 col-md-3">
                 <div class="header__nav__option">
-                    <a href="#" class="search-switch"><img src="/theme/img/icon/search.png" alt=""></a>
-                    <a href="#"><img src="/theme/img/icon/heart.png" alt=""></a>
-                    <a href="{{ path('ui_shop_cart') }}"><img src="/theme/img/icon/cart.png" alt=""> <span>0</span></a>
-                    <div class="price">$0.00</div>
+                    <a href="{{ path('ui_shop_cart') }}"><img src="/theme/img/icon/cart.png" alt=""></a>
                 </div>
             </div>
         </div>

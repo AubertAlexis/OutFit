@@ -59,7 +59,6 @@ class Cart extends AbstractController
      * @Route("/boutique/panier/{type}/{id}", name="ui_shop_cart_handle", defaults={"type": "increase"}, priority="0")
      * @param string $type
      * @param Product $product
-     * @param CustomerRepository $customerRepository
      * @param OrderRepository $orderRepository
      * @param EntityManagerInterface $entityManager
      * @return RedirectResponse
@@ -67,12 +66,15 @@ class Cart extends AbstractController
     public function handle(
         string $type,
         Product $product,
-        CustomerRepository $customerRepository,
         OrderRepository $orderRepository,
         EntityManagerInterface $entityManager
     ): RedirectResponse
     {
-        $customer = $customerRepository->findOneBy([]);
+        $this->denyAccessUnlessGranted(User::ROLE_CUSTOMER);
+
+        /** @var User $user */
+        $user = $this->getUser();
+        $customer = $user->getCustomer();
 
         $order = $orderRepository->findOneBy([
             'customer' => $customer,
@@ -104,19 +106,21 @@ class Cart extends AbstractController
     /**
      * @Route("/boutique/panier/{id}/remove", name="ui_shop_cart_remove", priority="1")
      * @param Line $line
-     * @param CustomerRepository $customerRepository
      * @param OrderRepository $orderRepository
      * @param EntityManagerInterface $entityManager
      * @return RedirectResponse
      */
     public function remove(
         Line $line,
-        CustomerRepository $customerRepository,
         OrderRepository $orderRepository,
         EntityManagerInterface $entityManager
     ): RedirectResponse
     {
-        $customer = $customerRepository->findOneBy([]);
+        $this->denyAccessUnlessGranted(User::ROLE_CUSTOMER);
+
+        /** @var User $user */
+        $user = $this->getUser();
+        $customer = $user->getCustomer();
 
         $order = $orderRepository->findOneBy([
             'customer' => $customer,
@@ -139,19 +143,21 @@ class Cart extends AbstractController
     /**
      * @Route("/boutique/panier/{id}/delivery", name="ui_shop_cart_delivery", priority="1")
      * @param Delivery $delivery
-     * @param CustomerRepository $customerRepository
      * @param OrderRepository $orderRepository
      * @param EntityManagerInterface $entityManager
      * @return RedirectResponse
      */
     public function delivery(
         Delivery $delivery,
-        CustomerRepository $customerRepository,
         OrderRepository $orderRepository,
         EntityManagerInterface $entityManager
     ): RedirectResponse
     {
-        $customer = $customerRepository->findOneBy([]);
+        $this->denyAccessUnlessGranted(User::ROLE_CUSTOMER);
+
+        /** @var User $user */
+        $user = $this->getUser();
+        $customer = $user->getCustomer();
 
         $order = $orderRepository->findOneBy([
             'customer' => $customer,

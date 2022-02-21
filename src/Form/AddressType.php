@@ -4,7 +4,9 @@ namespace App\Form;
 
 use App\Entity\Address;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -20,11 +22,22 @@ class AddressType extends AbstractType
                     'Facturation' => Address::BILLING
                 ]
             ])
-            ->add('number')
-            ->add('street')
-            ->add('city')
-            ->add('zip')
-            ->add('selected')
+            ->add('number', TextType::class, [
+                'label' => 'N°'
+            ])
+            ->add('street', TextType::class, [
+                'label' => 'Rue'
+            ])
+            ->add('city', TextType::class, [
+                'label' => 'Ville'
+            ])
+            ->add('zip', TextType::class, [
+                'label' => 'Code postal'
+            ])
+            ->add('selected', CheckboxType::class, [
+                'required' => false,
+                'label' => 'Choisir cette adresse par défaut ?'
+            ])
         ;
     }
 

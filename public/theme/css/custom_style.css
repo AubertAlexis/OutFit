@@ -1,0 +1,15 @@
+.header__logo img {
+    max-height: 75px!important;
+}
+
+.header__logo, .header__menu, .header__nav__option {
+    padding: 0;
+}
+
+.header__menu.mobile-menu, .header__nav__option {
+    margin-top: 25px;
+}
+
+.header__nav__option > a {
+    margin-top: 5px;
+}

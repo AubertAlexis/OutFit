@@ -4,7 +4,7 @@
   Author: Colorib
   Author URI: https://www.colorib.com/
   Version: 1.0
-  Created: Colorib 
+  Created: Colorib
 ******************************************************************/
 
 /*------------------------------------------------------------------
@@ -116,7 +116,7 @@ ol {
 }
 
 .section-title span {
-	color: #e53637;
+	color: #FFBF00;
 	font-size: 14px;
 	font-weight: 700;
 	text-transform: uppercase;
@@ -493,7 +493,7 @@ ol {
 	bottom: 0;
 	width: 100%;
 	height: 2px;
-	background: #e53637;
+	background: #FFBF00;
 	content: "";
 	-webkit-transition: all, 0.5s;
 	-o-transition: all, 0.5s;
@@ -589,7 +589,7 @@ ol {
 }
 
 .hero__text h6 {
-	color: #e53637;
+	color: #FFBF00;
 	font-size: 14px;
 	font-weight: 700;
 	text-transform: uppercase;
@@ -675,7 +675,7 @@ ol {
 
 .banner__item:hover .banner__item__text a:after {
 	width: 40px;
-	background: #e53637;
+	background: #FFBF00;
 }
 
 .banner__item.banner__item--middle {
@@ -814,7 +814,7 @@ ol {
 }
 
 .categories__deal__countdown span {
-	color: #e53637;
+	color: #FFBF00;
 	font-size: 14px;
 	font-weight: 700;
 	text-transform: uppercase;
@@ -899,7 +899,7 @@ ol {
 }
 
 .instagram__text h3 {
-	color: #e53637;
+	color: #FFBF00;
 	font-weight: 700;
 }
 
@@ -1056,7 +1056,7 @@ ol {
 
 .product__item__text a {
 	font-size: 15px;
-	color: #e53637;
+	color: #FFBF00;
 	font-weight: 700;
 	position: absolute;
 	left: 0;
@@ -1883,7 +1883,7 @@ ol {
 }
 
 .product__details__tab .nav-tabs .nav-item .nav-link.active {
-	border-bottom: 2px solid #e53637;
+	border-bottom: 2px solid #FFBF00;
 }
 
 .product__details__tab__content {
@@ -2042,11 +2042,11 @@ ol {
 }
 
 .footer__copyright__text p i {
-	color: #e53637;
+	color: #FFBF00;
 }
 
 .footer__copyright__text p a {
-	color: #e53637;
+	color: #FFBF00;
 }
 
 /*---------------------
@@ -2154,7 +2154,7 @@ ol {
 }
 
 .testimonial__text span {
-	color: #e53637;
+	color: #FFBF00;
 	font-size: 72px;
 }
 
@@ -2504,7 +2504,7 @@ ol {
 
 .cart__total ul li span {
 	font-weight: 700;
-	color: #e53637;
+	color: #FFBF00;
 	float: right;
 }
 
@@ -2555,7 +2555,7 @@ ol {
 }
 
 .checkout__input p span {
-	color: #e53637;
+	color: #FFBF00;
 }
 
 .checkout__input input {
@@ -2604,7 +2604,7 @@ ol {
 }
 
 .checkout__input__checkbox label input:checked~.checkmark {
-	border-color: #e53637;
+	border-color: #FFBF00;
 }
 
 .checkout__input__checkbox label input:checked~.checkmark:after {
@@ -2628,7 +2628,7 @@ ol {
 	top: -3px;
 	width: 14px;
 	height: 7px;
-	border: solid #e53637;
+	border: solid #FFBF00;
 	border-width: 1.5px 1.5px 0px 0px;
 	-webkit-transform: rotate(127deg);
 	-ms-transform: rotate(127deg);
@@ -2718,7 +2718,7 @@ ol {
 }
 
 .checkout__total__all li span {
-	color: #e53637;
+	color: #FFBF00;
 	font-weight: 700;
 	float: right;
 }
@@ -2741,7 +2741,7 @@ ol {
 
 .blog__item:hover a::after {
 	width: 40px;
-	background: #e53637;
+	background: #FFBF00;
 }
 
 .blog__item:hover .blog__item__text {
@@ -3051,7 +3051,7 @@ ol {
 	color: #ffffff;
 	height: 50px;
 	width: 50px;
-	background: #e53637;
+	background: #FFBF00;
 	border-radius: 50%;
 	line-height: 50px;
 	text-align: center;
@@ -3069,7 +3069,7 @@ ol {
 }
 
 .blog__details__quote h6 {
-	color: #e53637;
+	color: #FFBF00;
 	font-size: 15px;
 	font-weight: 700;
 	text-transform: uppercase;
