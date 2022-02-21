@@ -9,6 +9,7 @@ use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Uid\UuidV4;
 
 /**
@@ -20,16 +21,19 @@ class Product
     /**
      * @ORM\Id
      * @ORM\Column(type="uuid")
+     * @Groups({"product.all"})
      */
     private UuidV4 $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"product.all"})
      */
     private string $name;
 
     /**
      * @ORM\Column(type="float")
+     * @Groups({"product.all"})
      */
     private float $price;
 
