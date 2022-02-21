@@ -24,6 +24,7 @@ class Personal extends AbstractController
      */
     public function personal(CustomerRepository $customerRepository, Request $request, EntityManagerInterface $manager): Response
     {
+
         $customer = $customerRepository->findOneBy([]);
 
         $form = $this->createForm(CustomerType::class, $customer)->handleRequest($request);

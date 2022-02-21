@@ -9,6 +9,7 @@ use App\Entity\Order\Order;
 use App\Form\StripeType;
 use App\Repository\CustomerRepository;
 use App\Repository\Order\OrderRepository;
+use App\Services\MailService;
 use App\Services\StripeService;
 use Doctrine\ORM\EntityManagerInterface;
 use Stripe\Exception\ApiErrorException;
@@ -45,7 +46,8 @@ class Checkout extends AbstractController
     public function checkout(
         Request $request,
         CustomerRepository $customerRepository,
-        OrderRepository $orderRepository
+        OrderRepository $orderRepository,
+        MailService $mailService
     ): Response
     {
         $customer = $customerRepository->findOneBy([]);
@@ -76,7 +78,7 @@ class Checkout extends AbstractController
 
             if (!$card) throw new Exception('Aucun moyen de paiement défini.');
 
-            $this->payOrder($order, $customerStripeId);
+            $this->payOrder($order, $customerStripeId, $mailService, $customer->getUser()->getEmail());
 
             return $this->redirectToRoute('ui_home_index');
 
@@ -94,7 +96,7 @@ class Checkout extends AbstractController
                 return $this->redirectToRoute('ui_shop_index');
             }
 
-            $this->payOrder($order, $customerStripeId);
+            $this->payOrder($order, $customerStripeId, $mailService, $customer->getUser()->getEmail());
 
             return $this->redirectToRoute('ui_home_index');
 
@@ -106,7 +108,7 @@ class Checkout extends AbstractController
         ]);
     }
 
-    private function payOrder(Order $order, string $customer)
+    private function payOrder(Order $order, string $customer, MailService $mailService, string $customerEmail)
     {
         $payment = $this->stripeService->pay($order->getTotal(true), $customer);
 
@@ -118,5 +120,10 @@ class Checkout extends AbstractController
         }
 
         $this->entityManager->flush();
+
+        $mailService->sendEmail($customerEmail, "Confirmation de commande", "mailing/checkout.html.twig", [
+            'lines' => $order->getLines()->toArray(),
+            'order' => $order
+        ]);
     }
 }
