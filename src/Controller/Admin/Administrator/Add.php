@@ -29,7 +29,7 @@ class Add extends AbstractController
             ->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // On ajoute le role administrateur à l'utilisateur
+            // Add admin role to the user
             $administrator->getUser()->setRoles([User::ROLE_ADMINISTRATOR]);
 
             $manager->persist($administrator);

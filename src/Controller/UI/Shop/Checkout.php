@@ -65,7 +65,7 @@ class Checkout extends AbstractController
 
         if (!$order) return $this->redirectToRoute('ui_shop_checkout');
 
-        // Pas encore client
+        // If he is not a stripe customer
         if ($form->isSubmitted() && $form->isValid()) {
             $token = $paymentObject->getToken();
 
@@ -87,7 +87,7 @@ class Checkout extends AbstractController
 
         }
 
-        // Déjà client
+        // If he is already stripe customer
         if ($customer->getStripeId() !== null) {
             $customerStripeId = $customer->getStripeId();
 

@@ -18,7 +18,13 @@ class Index extends AbstractController
     {
         $this->denyAccessUnlessGranted(User::ROLE_CUSTOMER);
 
-        return $this->render('ui/account/order/index.html.twig');
+        /** @var User $user */
+        $user = $this->getUser();
+        $customer = $user->getCustomer();
+
+        return $this->render('ui/account/order/index.html.twig', [
+            'orders' => $customer->getOrders()
+        ]);
     }
 
 }

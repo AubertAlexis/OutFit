@@ -1,14 +1,28 @@
 {% extends 'ui/base.html.twig' %}
 
 {% block body %}
-    {{ form_start(form) }}
+    <div class="container my-5">
+        <div class="row my-5">
+            <div class="col-12">
+                <h2 class="text-center">Inscription</h2>
+                <hr class="my-3">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6 offset-3">
+                {{ form_start(form) }}
 
-    <div class="row">
-        <div class="col-sm">
-            <button type="submit" class="btn btn-sm btn-rounded btn-primary">
-                Enregistrer
-            </button>
+                {{ form_rest(form) }}
+
+                <div class="row">
+                    <div class="col-sm">
+                        <button type="submit" class="btn btn-sm btn-rounded btn-primary">
+                            Enregistrer
+                        </button>
+                    </div>
+                </div>
+                {{ form_end(form) }}
+            </div>
         </div>
     </div>
-    {{ form_end(form) }}
 {% endblock %}

@@ -29,7 +29,7 @@ class Add extends AbstractController
             ->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // On ajoute le role client à l'utilisateur
+            // Add customer role to the user
             $customer->getUser()->setRoles([User::ROLE_CUSTOMER]);
 
             $manager->persist($customer);

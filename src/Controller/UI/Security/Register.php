@@ -29,10 +29,10 @@ class Register extends AbstractController
             ->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // On ajoute le role client à l'utilisateur
+            // Add customer role to user
             $customer->getUser()->setRoles([User::ROLE_CUSTOMER]);
             $customer->getUser()->setPassword($hasher->hashPassword($customer->getUser(), $customer->getUser()->getPassword()));
-            
+
             $manager->persist($customer);
             $manager->flush();
             $this->addFlash('success', 'Votre compte a bien été créé.');

@@ -25,6 +25,13 @@ class Order
     const SUCCESS = 'success';
     const REFUSED = 'refused';
 
+    const STATES = [
+        self::CART => 'Panier',
+        self::PENDING => 'En attente',
+        self::SUCCESS => 'Terminé',
+        self::REFUSED => 'Annulé',
+    ];
+
     /**
      * @ORM\Id
      * @ORM\Column(type="uuid")
@@ -227,5 +234,10 @@ class Order
         $this->delivery = $delivery;
 
         return $this;
+    }
+
+    public function getStatusName(string $key): string
+    {
+        return self::STATES[$key];
     }
 }
